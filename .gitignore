@@ -1,0 +1,35 @@
+# Defaults
+node_modules
+.DS_Store
+
+# Dist
+dist/
+server/
+
+# Astro
+.astro/
+
+# Environment
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.sw?

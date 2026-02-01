@@ -1,0 +1,125 @@
+:root {
+  --bear-brown: #6B4E3D;
+  --charcoal: #2E2E2E;
+  --soft-white: #FAFAFA;
+  --warm-greige: #D1CAC0;
+  --moss-green: #7A8F7A;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-accent: 'Zen Maru Gothic', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--charcoal);
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+main.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Common Page Header */
+.page-header {
+  padding: 10rem 2rem 4rem;
+  text-align: center;
+}
+
+.page-title {
+  font-family: var(--font-accent);
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--bear-brown);
+  margin-bottom: 0.75rem;
+}
+
+.page-lead {
+  font-size: 0.9375rem;
+  opacity: 0.7;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Common Section */
+.section-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-family: var(--font-accent);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--bear-brown);
+  margin-bottom: 0.75rem;
+}
+
+.section-lead {
+  font-size: 0.9375rem;
+  opacity: 0.75;
+}
+
+/* Common Button */
+.btn-primary {
+  display: inline-block;
+  background: var(--moss-green);
+  color: var(--soft-white);
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--bear-brown);
+  transform: translateY(-2px);
+}
+
+.btn-text {
+  color: var(--moss-green);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: opacity 0.3s ease;
+}
+
+.btn-text:hover {
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 8rem 1.5rem 3rem;
+  }
+}

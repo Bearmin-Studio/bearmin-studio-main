@@ -1,0 +1,339 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { client, type Work, type MicroCMSListResponse } from '../../lib/microcms';
+
+let worksList: Work[] = [];
+
+try {
+  const response = await client.get<MicroCMSListResponse<Work>>({
+    endpoint: 'works',
+    queries: { limit: 2 },
+  });
+  worksList = response.contents;
+} catch (e) {
+  // エラー時は空配列のまま
+}
+---
+
+<BaseLayout title="Service">
+
+  <Breadcrumb items={[{ label: 'できること' }]} />
+
+  <div class="page-header">
+    <h1 class="page-title">できること</h1>
+    <p class="page-lead">ヒアリングから納品まで、ひとりの担当が寄り添います。</p>
+  </div>
+
+  <div class="service-content">
+
+    <div class="service-section">
+      <h2 class="service-section-title">サービス内容</h2>
+      <div class="service-cards">
+        <div class="service-card">
+          <h3>Webサイト制作</h3>
+          <p>企業サイト、サービスサイト、ポートフォリオなど。見た目だけでなく、あなたの事業の世界観が伝わるWebサイトを設計・制作します。</p>
+        </div>
+        <div class="service-card">
+          <h3>ヒアリング・設計</h3>
+          <p>何を伝えたいか、どんな人に届けたいか。まだ言葉になっていなくても大丈夫です。会話を通じて、一緒に整理するところから始めます。</p>
+        </div>
+        <div class="service-card">
+          <h3>保守・改善</h3>
+          <p>Webサイトは作って終わりではありません。テキストの修正、ページの追加、デザインの微調整など、育てていくお手伝いをします。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-section">
+      <h2 class="service-section-title">制作の流れ</h2>
+      <div class="flow">
+        <div class="flow-item">
+          <span class="flow-number">01</span>
+          <div class="flow-body">
+            <h3>ヒアリング</h3>
+            <p>まずはお話を聴かせてください。事業のこと、届けたい想い、好きな雰囲気など、何でも自由にお話しいただけます。</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-number">02</span>
+          <div class="flow-body">
+            <h3>ご提案・設計</h3>
+            <p>ヒアリングをもとに、サイトの構成やデザインの方向性をご提案します。納得いただけるまで、じっくりすり合わせます。</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-number">03</span>
+          <div class="flow-body">
+            <h3>デザイン・制作</h3>
+            <p>デザインからコーディングまで一貫して制作します。制作中も随時確認いただきながら進めます。</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-number">04</span>
+          <div class="flow-body">
+            <h3>確認・修正</h3>
+            <p>完成したサイトをご確認いただき、気になる箇所を修正します。細かな部分もお気軽にお伝えください。</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-number">05</span>
+          <div class="flow-body">
+            <h3>納品・公開</h3>
+            <p>最終確認ののち、サイトを公開します。公開後の更新や運用についてもサポートいたします。</p>
+          </div>
+        </div>
+      </div>
+      <div class="service-note">
+        ※ 制作期間はサイトの規模により異なりますが、目安として1ヶ月ほどです。まずはお気軽にご相談ください。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="works-section">
+    <div class="works-inner">
+      <h2 class="works-section-title">最新実績</h2>
+      <p class="works-section-lead">世界観を大切にした、これまでのお仕事。</p>
+      <div class="works-grid">
+        {worksList.length === 0 ? (
+          <>
+            <div class="work-item placeholder">Coming Soon</div>
+            <div class="work-item placeholder">Coming Soon</div>
+          </>
+        ) : (
+          worksList.map((work) => (
+            <a href={work.url || '#'} class="work-item linked" target="_blank" rel="noopener noreferrer">
+              {work.thumbnail ? (
+                <img src={work.thumbnail.url} alt={work.title} />
+              ) : (
+                <span class="work-title">{work.title}</span>
+              )}
+            </a>
+          ))
+        )}
+      </div>
+      <div class="works-more">
+        <a href="/works" class="btn-text">実績一覧 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-cta">
+    <p>「まだ何も決まっていないけど…」という段階でも大丈夫です。</p>
+    <a href="/contact" class="btn-primary">相談してみる</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .service-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .service-section {
+    margin-bottom: 5rem;
+  }
+
+  .service-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .service-section-title {
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.15);
+  }
+
+  .service-section p {
+    margin-bottom: 1.5rem;
+    line-height: 2.2;
+  }
+
+  .service-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Cards */
+  .service-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    padding: 2rem;
+    background: var(--warm-greige);
+    border-radius: 6px;
+  }
+
+  .service-card h3 {
+    font-family: var(--font-accent);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card p {
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+  }
+
+  /* Flow */
+  .flow {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flow-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.1);
+  }
+
+  .flow-item:last-child {
+    border-bottom: none;
+  }
+
+  .flow-number {
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    min-width: 2rem;
+    opacity: 0.6;
+  }
+
+  .flow-body h3 {
+    font-family: var(--font-accent);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .flow-body p {
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+  }
+
+  .service-note {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--warm-greige);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 2;
+  }
+
+  /* Works */
+  .works-section {
+    padding: 6rem 2rem;
+    background: var(--warm-greige);
+  }
+
+  .works-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .works-section-title {
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .works-section-lead {
+    text-align: center;
+    font-size: 0.9375rem;
+    opacity: 0.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-item {
+    aspect-ratio: 16/10;
+    background: var(--soft-white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    color: var(--charcoal);
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .work-item.placeholder {
+    opacity: 0.5;
+  }
+
+  .work-item.linked:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .work-title {
+    font-family: var(--font-accent);
+    color: var(--bear-brown);
+  }
+
+  /* CTA */
+  .service-cta {
+    text-align: center;
+    padding: 4rem 2rem 6rem;
+    background: var(--soft-white);
+  }
+
+  .service-cta p {
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+    opacity: 0.85;
+  }
+
+  .works-more {
+    text-align: center;
+    margin-top: 4.5rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .service-content {
+      padding: 0 1.5rem 4rem;
+    }
+
+    .service-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  }
+</style>
+</style>

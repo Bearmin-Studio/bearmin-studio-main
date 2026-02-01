@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<BaseLayout title="About">
+
+  <Breadcrumb items={[{ label: 'Bearmin Studioについて' }]} />
+
+  <div class="page-header">
+    <h1 class="page-title">Bearmin Studioについて</h1>
+    <p class="page-lead">Bearmin Studioだからできること。</p>
+  </div>
+
+  <div class="about-content">
+
+    <div class="about-section">
+      <h2 class="about-section-title">想い</h2>
+      <p>すべての人にWebサイトを。</p>
+      <p>いつか、名刺を持つようにWebサイトを持つ時代がくると思っています。<br />
+      個人で事業を始めた方も、小さなチームで挑戦している方も、想いを届ける場所を持てるように。</p>
+      <p>Bearmin Studioは、そんな「はじめの一歩」を一緒につくるスタジオです。</p>
+
+      <p>Bearmin Studio の「Bearmin」は、クマ（Bear）に由来しています。<br />
+        同時に、「Be arm」——手助けをする、という意味も込めました。<br />
+        あなたのそばで、あなたの「腕」となって支える存在でありたい。<br />
+        クマのもつ安心感や親しみやすさ、どっしりとした信頼感。<br />
+        そんな想いを屋号に込めています。</p>
+    </div>
+
+    <div class="about-section">
+      <h2 class="about-section-title">大切にしていること</h2>
+      <div class="values">
+        <div class="value-item">
+          <h3>まず、聴くこと</h3>
+          <p>何を作りたいかの前に、何を届けたいかを聴かせてください。<br/>
+          言葉にならない想いも、会話の中からすくい取ります。</p>
+        </div>
+        <div class="value-item">
+          <h3>世界観ごと、つくること</h3>
+          <p>見た目だけのデザインではなく、あなたの事業の空気感や温度がにじむWebサイトをつくります。</p>
+        </div>
+        <div class="value-item">
+          <h3>つくって終わりにしないこと</h3>
+          <p>Webサイトは育てていくもの。<br/>公開後の小さな修正や改善も、気軽にご相談ください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h2 class="about-section-title">代表（村長）について</h2>
+      <div class="profile">
+        <div class="profile-image">
+          <img src="/images/profile.png" alt="Mikuru Terasaki" />
+        </div>
+        <p class="profile-name">Mikuru Terasaki</p>
+      </div>
+      <p>14歳のときにWeb制作と出会い、独学で学びはじめました。<br />
+      高校3年生のときに地域共創イベントを主催する会社を起業。<br/>
+      人と関わるなかで「届けたい想いを持っている人の力になりたい」という気持ちが強くなり、個人事業主としてWeb制作の道へ。</p>
+      <p>得意なことは、人の気持ちを汲み取ること。<br/>
+      言葉にしきれない想いも、会話の中から一緒に見つけていきます。</p>
+      <p>趣味は食べ歩きをすること。</p>
+    </div>
+  </div>
+
+  <div class="about-cta">
+    <p>お仕事のご相談、お気軽にどうぞ。</p>
+    <a href="/contact" class="btn-primary">相談してみる</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .about-content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .about-section {
+    margin-bottom: 5rem;
+  }
+
+  .about-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-section-title {
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.15);
+  }
+
+  .about-section p {
+    margin-bottom: 1.5rem;
+    line-height: 2.2;
+  }
+
+  .about-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Profile */
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--warm-greige);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-name {
+    font-family: var(--font-accent);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+  }
+
+  /* Values */
+  .values {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .value-item {
+    padding: 1.5rem;
+    background: var(--warm-greige);
+    border-radius: 6px;
+  }
+
+  .value-item h3 {
+    font-family: var(--font-accent);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .value-item p {
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+  }
+
+  /* CTA */
+  .about-cta {
+    text-align: center;
+    padding: 4rem 2rem 6rem;
+    background: var(--warm-greige);
+  }
+
+  .about-cta p {
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 768px) {
+    .about-content {
+      padding: 0 1.5rem 4rem;
+    }
+
+    .about-section {
+      margin-bottom: 3.5rem;
+    }
+  }
+</style>

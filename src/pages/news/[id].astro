@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { client, type News, type MicroCMSListResponse } from '../../lib/microcms';
+
+export async function getStaticPaths() {
+  const response = await client.get<MicroCMSListResponse<News>>({
+    endpoint: 'news',
+    queries: { limit: 100 },
+  });
+
+  return response.contents.map((news) => ({
+    params: { id: news.id },
+    props: { news },
+  }));
+}
+
+type Props = {
+  news: News;
+};
+
+const { news } = Astro.props;
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
+};
+---
+
+<BaseLayout title={news.title}>
+
+  <Breadcrumb items={[{ label: 'お知らせ', href: '/news' }, { label: news.title }]} />
+
+  <div class="page-header">
+    <div class="header-meta">
+      <p class="page-date">{formatDate(news.date || news.publishedAt)}</p>
+      {news.tags && news.tags.length > 0 && (
+        <div class="news-tags">
+          {news.tags.map((tag) => (
+            <span class="news-tag">#{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+    <h1 class="page-title">{news.title}</h1>
+  </div>
+
+  <div class="news-detail">
+    {news.content && <div class="news-content" set:html={news.content} />}
+
+    <div class="news-back">
+      <a href="/news">&larr; お知らせ一覧に戻る</a>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-date {
+    font-size: 0.875rem;
+    color: var(--bear-brown);
+  }
+
+  .news-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .news-tag {
+    font-size: 0.75rem;
+    color: var(--moss-green);
+    background: rgba(90, 111, 88, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .news-detail {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .news-content {
+    line-height: 2.2;
+  }
+
+  .news-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .news-content :global(h2) {
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin: 3rem 0 1.5rem;
+  }
+
+  .news-content :global(h3) {
+    font-family: var(--font-accent);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin: 2rem 0 1rem;
+  }
+
+  .news-content :global(a) {
+    color: var(--moss-green);
+    text-decoration: underline;
+  }
+
+  .news-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+  }
+
+  .news-back {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(107, 78, 61, 0.12);
+  }
+
+  .news-back a {
+    color: var(--bear-brown);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: opacity 0.3s ease;
+  }
+
+  .news-back a:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .news-detail {
+      padding: 0 1.5rem 4rem;
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<BaseLayout title="プライバシーポリシー">
+
+  <Breadcrumb items={[{ label: 'プライバシーポリシー' }]} />
+
+  <div class="page-header">
+    <h1 class="page-title">プライバシーポリシー</h1>
+  </div>
+
+  <div class="legal-content">
+
+    <div class="legal-section">
+      <h2>個人情報の取り扱いについて</h2>
+      <p>Bearmin Studio（以下「当スタジオ」）は、お客さまの個人情報の重要性を認識し、適切に保護・管理いたします。</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>取得する個人情報</h2>
+      <p>当スタジオでは、お問い合わせの際に以下の情報をお預かりすることがあります。</p>
+      <p>お名前、メールアドレス、お問い合わせ内容、その他ご本人が任意で提供された情報。</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>利用目的</h2>
+      <p>お預かりした個人情報は、以下の目的で利用いたします。</p>
+      <p>お問い合わせへの回答およびご連絡、ご依頼いただいた制作業務の遂行、制作に関するご確認やご提案、当スタジオのサービス改善のための参考。</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>第三者への提供</h2>
+      <p>お預かりした個人情報は、法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>個人情報の管理</h2>
+      <p>当スタジオは、お預かりした個人情報の漏洩・紛失・改ざんを防止するため、適切な安全管理措置を講じます。</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>開示・訂正・削除について</h2>
+      <p>ご本人から個人情報の開示・訂正・削除をご希望される場合は、下記のお問い合わせ先までご連絡ください。速やかに対応いたします。</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>お問い合わせ先</h2>
+      <p>Bearmin Studio<br>メール：bearmin0124@gmail.com</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>ポリシーの変更</h2>
+      <p>本ポリシーの内容は、必要に応じて変更することがあります。変更後のポリシーは、当サイトに掲載した時点で効力を生じるものとします。</p>
+    </div>
+
+    <p class="legal-date">制定日：2025年2月1日</p>
+
+  </div>
+
+</BaseLayout>
+
+<style>
+  .legal-content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .legal-section {
+    margin-bottom: 3rem;
+  }
+
+  .legal-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-section h2 {
+    font-family: var(--font-accent);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.12);
+  }
+
+  .legal-section p {
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+    line-height: 2;
+  }
+
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-date {
+    text-align: right;
+    font-size: 0.8125rem;
+    opacity: 0.6;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .legal-content {
+      padding: 0 1.5rem 4rem;
+    }
+  }
+</style>

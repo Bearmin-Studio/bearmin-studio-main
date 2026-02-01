@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { client, type Work, type MicroCMSListResponse } from '../../lib/microcms';
+
+let worksList: Work[] = [];
+let fetchError = false;
+
+try {
+  const response = await client.get<MicroCMSListResponse<Work>>({
+    endpoint: 'works',
+    queries: { limit: 20 },
+  });
+  worksList = response.contents;
+} catch (e) {
+  fetchError = true;
+}
+---
+
+<BaseLayout title="Works">
+
+  <Breadcrumb items={[{ label: '制作事例' }]} />
+
+  <div class="page-header">
+    <h1 class="page-title">制作事例</h1>
+    <p class="page-lead">世界観を大切にした、これまでのお仕事。</p>
+  </div>
+
+  <div class="works-content">
+    {fetchError ? (
+      <div class="works-empty">
+        <p>制作事例を取得できませんでした。</p>
+      </div>
+    ) : worksList.length === 0 ? (
+      <div class="works-empty">
+        <p>現在、制作事例を準備中です。</p>
+        <p class="works-empty-sub">公開でき次第、順次掲載していきます。</p>
+      </div>
+    ) : (
+      <div class="works-grid">
+        {worksList.map((work) => (
+          <a href={work.url || '#'} class="work-card" target="_blank" rel="noopener noreferrer">
+            <div class="work-thumbnail">
+              {work.thumbnail ? (
+                <img src={work.thumbnail.url} alt={work.title} />
+              ) : (
+                <div class="work-placeholder">No Image</div>
+              )}
+            </div>
+            <div class="work-info">
+              <h2 class="work-title">{work.title}</h2>
+              {work.client && <p class="work-client">{work.client}</p>}
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <div class="works-cta">
+    <p>実績が少ないぶん、最初のお客さまには特にていねいに向き合います。</p>
+    <a href="/contact" class="btn-primary">相談してみる</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .works-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .work-card {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+
+  .work-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .work-thumbnail {
+    aspect-ratio: 16/10;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--warm-greige);
+    margin-bottom: 1rem;
+  }
+
+  .work-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .work-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    color: var(--charcoal);
+    opacity: 0.4;
+  }
+
+  .work-info {
+    padding: 0 0.25rem;
+  }
+
+  .work-title {
+    font-family: var(--font-accent);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 0.25rem;
+  }
+
+  .work-client {
+    font-size: 0.8125rem;
+    opacity: 0.6;
+  }
+
+  .works-empty {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .works-empty p {
+    font-size: 0.9375rem;
+    opacity: 0.6;
+    margin-bottom: 1rem;
+  }
+
+  .works-empty-sub {
+    font-size: 0.8125rem;
+    opacity: 0.45;
+  }
+
+  .works-cta {
+    text-align: center;
+    padding: 4rem 2rem 6rem;
+    background: var(--warm-greige);
+  }
+
+  .works-cta p {
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 768px) {
+    .works-content {
+      padding: 0 1.5rem 4rem;
+    }
+
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

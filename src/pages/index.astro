@@ -1,0 +1,464 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { client, type News, type Work, type MicroCMSListResponse } from '../lib/microcms';
+
+let newsList: News[] = [];
+let worksList: Work[] = [];
+
+try {
+  const [newsRes, worksRes] = await Promise.all([
+    client.get<MicroCMSListResponse<News>>({ endpoint: 'news', queries: { limit: 3 } }),
+    client.get<MicroCMSListResponse<Work>>({ endpoint: 'works', queries: { limit: 2 } }),
+  ]);
+  newsList = newsRes.contents;
+  worksList = worksRes.contents;
+} catch (e) {
+  // エラー時は空配列のまま
+}
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+};
+---
+
+<BaseLayout title="森のように、豊かなWebサイトを。" bgColor="warm-greige" headerVariant="hero">
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="/images/hero.jpg" alt="Bearmin Studio Hero" />
+    </div>
+    <div class="hero-content">
+      <img src="/favicon.ico" alt="" class="hero-icon">
+      <h1>森のように、豊かなWebサイトを。</h1>
+      <p class="hero-sub">木が育つように作り、枝葉が広がるように提案する。</p>
+    </div>
+  </section>
+
+  <section class="about-preview" id="about">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">Bearmin Studioについて</h2>
+      </div>
+      <div class="about-text-simple">
+        <p>個人事業主やスタートアップのためのWeb制作スタジオです。<br>大切にしているのは、まずあなたの話をじっくり聴くこと。<br>想いや空気感をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-preview" id="service">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">できること</h2>
+        <p class="section-lead">ヒアリングから納品まで、ひとりの担当が寄り添います。</p>
+      </div>
+      <div class="service-cards">
+        <div class="service-card">
+          <h3>Webサイト制作</h3>
+          <p>企業サイト、サービスサイト、ポートフォリオなど。世界観を大切に設計します。</p>
+        </div>
+        <div class="service-card">
+          <h3>ヒアリング・設計</h3>
+          <p>何を伝えたいか、どんな人に届けたいか。言葉にするところから一緒に考えます。</p>
+        </div>
+        <div class="service-card">
+          <h3>保守・改善</h3>
+          <p>作って終わりではなく、育てていくお手伝いも。小さな修正からご相談ください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="works-preview" id="works">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">最新実績</h2>
+        <p class="section-lead">世界観を大切にした、これまでのお仕事。</p>
+      </div>
+      <div class="works-grid">
+        {worksList.length === 0 ? (
+          <>
+            <div class="work-item placeholder">Coming Soon</div>
+            <div class="work-item placeholder">Coming Soon</div>
+          </>
+        ) : (
+          worksList.map((work) => (
+            <a href={work.url || '#'} class="work-item" target="_blank" rel="noopener noreferrer">
+              {work.thumbnail ? (
+                <img src={work.thumbnail.url} alt={work.title} />
+              ) : (
+                <span class="work-title">{work.title}</span>
+              )}
+            </a>
+          ))
+        )}
+      </div>
+      <div class="works-more">
+        <a href="/works" class="btn-text">実績一覧 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="news-preview" id="news">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">お知らせ</h2>
+      </div>
+      <div class="news-list">
+        {newsList.length === 0 ? (
+          <p class="news-empty">現在、お知らせはありません。</p>
+        ) : (
+          newsList.map((news) => (
+            <a href={`/news/${news.id}`} class="news-item">
+              <span class="news-date">{formatDate(news.date || news.publishedAt)}</span>
+              <div class="news-body">
+                {news.tags && news.tags.length > 0 && (
+                  <div class="news-tags">
+                    {news.tags.map((tag) => (
+                      <span class="news-tag">#{tag}</span>
+                    ))}
+                  </div>
+                )}
+                <p class="news-title">{news.title}</p>
+              </div>
+            </a>
+          ))
+        )}
+      </div>
+      <div class="news-more">
+        <a href="/news" class="btn-text">お知らせ一覧 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-preview" id="contact">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2 class="section-title">お問い合わせ</h2>
+        <p class="section-lead">まずはお気軽にご相談ください。</p>
+      </div>
+      <div class="contact-text">
+        <p>「まだ何も決まっていないけど…」という段階でも大丈夫です。<br>お話を聴かせていただくところから、一緒に始めましょう。</p>
+      </div>
+      <a href="/contact" class="btn-primary">相談してみる</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 2rem;
+    position: relative;
+    background: #8a9a7a;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent 0%, var(--warm-greige) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 2.5rem;
+    filter: brightness(0) invert(1);
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.3s;
+  }
+
+  .hero h1 {
+    font-family: var(--font-accent);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 500;
+    color: var(--soft-white);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.6s;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--soft-white);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.9s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* About Preview */
+  .about-preview {
+    padding: 6rem 2rem;
+    background: var(--warm-greige);
+  }
+
+  .about-text-simple {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .about-text-simple p {
+    line-height: 2.2;
+  }
+
+  /* Service Preview */
+  .service-preview {
+    padding: 6rem 2rem;
+    background: var(--soft-white);
+  }
+
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .service-card {
+    background: var(--warm-greige);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .service-card h3 {
+    font-family: var(--font-accent);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+
+  .service-card p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+
+  .service-more {
+    text-align: center;
+    margin-top: 4.5rem;
+  }
+
+  /* Works Preview */
+  .works-preview {
+    padding: 6rem 2rem;
+    background: var(--warm-greige);
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .work-item {
+    aspect-ratio: 16/10;
+    background: var(--soft-white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    color: var(--charcoal);
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .work-item.placeholder {
+    opacity: 0.5;
+  }
+
+  .work-item:not(.placeholder):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .work-title {
+    font-family: var(--font-accent);
+    color: var(--bear-brown);
+  }
+
+  .work-title {
+    font-family: var(--font-accent);
+    color: var(--bear-brown);
+  }
+
+  .works-more {
+    text-align: center;
+    margin-top: 4.5rem;
+  }
+
+  /* News Preview */
+  .news-preview {
+    padding: 6rem 2rem;
+    background: var(--soft-white);
+  }
+
+  .news-list {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .news-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.12);
+    align-items: baseline;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: opacity 0.2s ease;
+  }
+
+  .news-item:hover {
+    opacity: 0.7;
+  }
+
+  .news-item:first-child {
+    padding-top: 0;
+  }
+
+  .news-item:last-child {
+    border-bottom: none;
+  }
+
+  .news-date {
+    font-size: 0.8125rem;
+    color: var(--bear-brown);
+    white-space: nowrap;
+    min-width: 5.5rem;
+  }
+
+  .news-title {
+    font-size: 0.9375rem;
+    color: var(--charcoal);
+    transition: color 0.3s ease;
+  }
+
+  .news-item:hover .news-title {
+    color: var(--moss-green);
+  }
+
+  .news-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .news-tag {
+    font-size: 0.75rem;
+    color: var(--moss-green);
+    background: rgba(90, 111, 88, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .news-more {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  /* Contact Preview */
+  .contact-preview {
+    padding: 6rem 2rem;
+    background: var(--soft-white);
+    border-top: #8a9a7a24 3px solid;
+    text-align: center;
+  }
+
+  .contact-text {
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .contact-text p {
+    font-size: 0.9375rem;
+    opacity: 0.8;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .service-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-preview,
+    .service-preview,
+    .works-preview,
+    .news-preview,
+    .contact-preview {
+      padding: 4rem 1.5rem;
+    }
+  }
+</style>

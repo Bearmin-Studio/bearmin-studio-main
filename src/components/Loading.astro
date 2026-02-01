@@ -1,0 +1,121 @@
+---
+---
+<div id="loading-screen" class="loading-screen">
+  <div class="loading-panel panel-left"></div>
+  <div class="loading-panel panel-right"></div>
+  <div class="loading-content">
+    <img src="/images/logo-3.png" alt="Bearmin Studio" class="loading-logo" />
+  </div>
+</div>
+
+<script>
+  const key = 'hasVisited';
+  const screen = document.getElementById('loading-screen');
+
+  if (sessionStorage.getItem(key)) {
+    // 2回目以降は即座に非表示
+    if (screen) screen.style.display = 'none';
+  } else {
+    // 初回訪問時
+    if (screen) {
+      // スクロール禁止
+      document.body.style.overflow = 'hidden';
+
+      // 1. ロゴフェードイン
+      setTimeout(() => {
+        screen.classList.add('active');
+      }, 100);
+
+      const finishAnimation = () => {
+        // すでに完了処理が走っていたらスキップ
+        if (screen.classList.contains('animating-out')) return;
+        screen.classList.add('animating-out');
+
+        // 2. 少し待ってからカーテンを開く
+        setTimeout(() => {
+          screen.classList.add('finished');
+          
+          // 3. アニメーション完了後にお片付け
+          setTimeout(() => {
+            screen.style.display = 'none';
+            document.body.style.overflow = ''; // スクロール解除
+            sessionStorage.setItem(key, 'true');
+          }, 1200); // CSS transition time (1.2s)
+        }, 1200); // ロゴ表示時間
+      };
+
+      window.addEventListener('load', finishAnimation);
+      // フォールバック（ロードが遅い場合やSPA遷移時など）
+      setTimeout(finishAnimation, 3000);
+    }
+  }
+</script>
+
+<style>
+  .loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 左右のパネル（森） */
+  .loading-panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: var(--moss-green);
+    z-index: 1;
+    transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .panel-left {
+    left: 0;
+    transform-origin: left;
+  }
+
+  .panel-right {
+    right: 0;
+    transform-origin: right;
+  }
+
+  /* ロゴコンテナ */
+  .loading-content {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease, transform 0.8s ease;
+  }
+
+  .loading-logo {
+    width: 180px; /* ロゴを大きく */
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+
+  /* ロゴ表示状態 */
+  .loading-screen.active .loading-content {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* アニメーション終了（カーテンオープン） */
+  .loading-screen.finished .panel-left {
+    transform: translateX(-100%);
+  }
+
+  .loading-screen.finished .panel-right {
+    transform: translateX(100%);
+  }
+
+  .loading-screen.finished .loading-content {
+    opacity: 0;
+    transform: scale(1.3);
+    transition-duration: 0.4s; 
+  }
+</style>

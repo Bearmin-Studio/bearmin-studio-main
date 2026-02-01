@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<BaseLayout title="特定商取引法に基づく表記">
+
+  <Breadcrumb items={[{ label: '特定商取引法に基づく表記' }]} />
+
+  <div class="page-header">
+    <h1 class="page-title">特定商取引法に基づく表記</h1>
+  </div>
+
+  <div class="legal-content">
+    <table class="legal-table">
+      <tr>
+        <th>事業者名</th>
+        <td>Bearmin Studio</td>
+      </tr>
+      <tr>
+        <th>代表者</th>
+        <td>寺﨑 みくる</td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td>〒464-0850<br>愛知県名古屋市千種区今池5-33-2</td>
+      </tr>
+      <tr>
+        <th>連絡先</th>
+        <td>bearmin0124@gmail.com</td>
+      </tr>
+      <tr>
+        <th>販売価格</th>
+        <td>制作内容に応じてお見積りいたします。詳細はお問い合わせください。</td>
+      </tr>
+      <tr>
+        <th>お支払い方法</th>
+        <td>銀行振込</td>
+      </tr>
+      <tr>
+        <th>お支払い時期</th>
+        <td>制作着手前に着手金として50%、納品後に残金50%をお支払いいただきます。</td>
+      </tr>
+      <tr>
+        <th>サービス提供時期</th>
+        <td>ご契約後、制作内容に応じて個別にご案内いたします。目安として1ヶ月程度。</td>
+      </tr>
+      <tr>
+        <th>キャンセルについて</th>
+        <td>制作着手前のキャンセルは可能です。着手後のキャンセルについては、進行状況に応じた費用が発生する場合があります。</td>
+      </tr>
+    </table>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .legal-content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .legal-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .legal-table tr {
+    border-bottom: 1px solid rgba(107, 78, 61, 0.1);
+  }
+
+  .legal-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .legal-table th,
+  .legal-table td {
+    padding: 1.25rem 0;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    text-align: left;
+    vertical-align: top;
+    line-height: 2;
+  }
+
+  .legal-table th {
+    width: 35%;
+    color: var(--bear-brown);
+    font-weight: 400;
+    padding-right: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .legal-content {
+      padding: 0 1.5rem 4rem;
+    }
+
+    .legal-table th,
+    .legal-table td {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+
+    .legal-table th {
+      padding-top: 1.25rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .legal-table td {
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(107, 78, 61, 0.1);
+    }
+
+    .legal-table tr {
+      border-bottom: none;
+    }
+
+    .legal-table tr:last-child td {
+      border-bottom: none;
+    }
+  }
+</style>

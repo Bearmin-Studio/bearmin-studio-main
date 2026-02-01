@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { client, type News, type MicroCMSListResponse } from '../../lib/microcms';
+
+let newsList: News[] = [];
+let fetchError = false;
+
+try {
+  const response = await client.get<MicroCMSListResponse<News>>({
+    endpoint: 'news',
+    queries: { limit: 20 },
+  });
+  newsList = response.contents;
+} catch (e) {
+  fetchError = true;
+}
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
+};
+---
+
+<BaseLayout title="News">
+
+  <Breadcrumb items={[{ label: 'お知らせ' }]} />
+
+  <div class="page-header">
+    <h1 class="page-title">お知らせ</h1>
+  </div>
+
+  <div class="news-content">
+    {fetchError ? (
+      <div class="news-empty">
+        <p>お知らせを取得できませんでした。</p>
+      </div>
+    ) : newsList.length === 0 ? (
+      <div class="news-empty">
+        <p>現在、お知らせはありません。</p>
+      </div>
+    ) : (
+      <div class="news-list">
+        {newsList.map((news) => (
+          <a href={`/news/${news.id}`} class="news-item">
+            <span class="news-date">{formatDate(news.date || news.publishedAt)}</span>
+            <div class="news-body">
+              <div class="news-meta">
+                {news.tags && news.tags.length > 0 && (
+                  <div class="news-tags">
+                    {news.tags.map((tag) => (
+                      <span class="news-tag">#{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <p class="news-title">{news.title}</p>
+              {news.excerpt && <p class="news-excerpt">{news.excerpt}</p>}
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+
+</BaseLayout>
+
+<style>
+  .news-content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .news-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.12);
+    align-items: baseline;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: opacity 0.2s ease;
+  }
+
+  .news-item:hover {
+    opacity: 0.7;
+  }
+
+  .news-item:first-child {
+    padding-top: 0;
+  }
+
+  .news-item:last-child {
+    border-bottom: none;
+  }
+
+  .news-date {
+    font-size: 0.8125rem;
+    color: var(--bear-brown);
+    white-space: nowrap;
+    min-width: 5.5rem;
+  }
+
+  .news-body {
+    flex: 1;
+  }
+
+  .news-title {
+    font-size: 0.9375rem;
+    margin-bottom: 0.375rem;
+    color: var(--charcoal);
+    transition: color 0.3s ease;
+  }
+
+  .news-item:hover .news-title {
+    color: var(--moss-green);
+  }
+
+  .news-excerpt {
+    font-size: 0.8125rem;
+    opacity: 0.6;
+    line-height: 1.7;
+  }
+
+  .news-empty {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .news-empty p {
+    font-size: 0.9375rem;
+    opacity: 0.6;
+  }
+
+  .news-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .news-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .news-tag {
+    font-size: 0.75rem;
+    color: var(--moss-green);
+    background: rgba(90, 111, 88, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .news-content {
+      padding: 0 1.5rem 4rem;
+    }
+
+    .news-item {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>
