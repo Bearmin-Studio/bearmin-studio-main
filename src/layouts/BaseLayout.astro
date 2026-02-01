@@ -6,12 +6,19 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  description?: string;
   bgColor?: 'soft-white' | 'warm-greige';
   headerVariant?: 'default' | 'hero';
   verticalCenter?: boolean;
 }
 
-const { title, bgColor = 'soft-white', headerVariant = 'default', verticalCenter = false } = Astro.props;
+const { 
+  title,
+  description = "Bearmin Studio（ベアミン）は、個人事業主やスタートアップのためのWeb制作スタジオです。想いや空気感をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。", 
+  bgColor = 'soft-white', 
+  headerVariant = 'default', 
+  verticalCenter = false 
+} = Astro.props;
 
 const bgMap = {
   'soft-white': 'var(--soft-white)',
@@ -22,7 +29,9 @@ const schema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Bearmin Studio",
-  "url": Astro.site ? Astro.site.toString() : "http://localhost:4321/",
+  "alternateName": "ベアミン",
+  "url": Astro.site ? Astro.site.toString() : "https://bearmin.jp/",
+  "description": description
 });
 ---
 
@@ -31,7 +40,8 @@ const schema = JSON.stringify({
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} | Bearmin Studio</title>
+  <title>{title ? `${title} | Bearmin Studio（ベアミン）` : 'Bearmin Studio（ベアミン）'}</title>
+  <meta name="description" content={description}>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Zen+Maru+Gothic:wght@400;500&display=swap" rel="stylesheet">
