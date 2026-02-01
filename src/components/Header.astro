@@ -4,11 +4,17 @@ interface Props {
 }
 
 const { variant = 'default' } = Astro.props;
+const isHome = Astro.url.pathname === '/';
 ---
 
 <header class:list={['site-header', { 'header-hero': variant === 'hero' }]}>
   <div class="logo">
-    <a href="/"><img src="/images/logo-3.png" alt="Bearmin Studio（ベアミン）"></a>
+    <a href="/">
+      <img 
+        src={isHome ? "/images/logo.png" : "/images/logo-2.png"} 
+        alt="Bearmin Studio（ベアミン）"
+      >
+    </a>
   </div>
   
   <button class="hamburger" aria-label="メニューを開く" aria-expanded="false">

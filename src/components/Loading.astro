@@ -1,10 +1,23 @@
 ---
 ---
+
+<script is:inline>
+  (() => {
+    const key = 'hasVisited';
+    const hasVisited = sessionStorage.getItem(key);
+    
+    if (!hasVisited) {
+      // 1. 初回訪問時のみ表示状態にする（レンダリング前に実行）
+      document.documentElement.classList.add('is-loading');
+    }
+  })();
+</script>
+
 <div id="loading-screen" class="loading-screen">
   <div class="loading-panel panel-left"></div>
   <div class="loading-panel panel-right"></div>
   <div class="loading-content">
-    <img src="/images/logo-3.png" alt="Bearmin Studio" class="loading-logo" />
+    <img src="/images/logo.png" alt="Bearmin Studio" class="loading-logo" />
   </div>
 </div>
 
@@ -12,51 +25,55 @@
   const key = 'hasVisited';
   const screen = document.getElementById('loading-screen');
 
-  if (sessionStorage.getItem(key)) {
-    // 2回目以降は即座に非表示
-    if (screen) screen.style.display = 'none';
-  } else {
-    // 初回訪問時
-    if (screen) {
-      // スクロール禁止
-      document.body.style.overflow = 'hidden';
+  if (!sessionStorage.getItem(key) && screen) {
+    // スクロール禁止
+    document.body.style.overflow = 'hidden';
 
-      // 1. ロゴフェードイン
+    // 1. ロゴフェードイン
+    setTimeout(() => {
+      screen.classList.add('active');
+    }, 100);
+
+    const finishAnimation = () => {
+      // すでに完了処理が走っていたらスキップ
+      if (screen.classList.contains('animating-out')) return;
+      screen.classList.add('animating-out');
+
+      // 2. 少し待ってからカーテンを開く
       setTimeout(() => {
-        screen.classList.add('active');
-      }, 100);
-
-      const finishAnimation = () => {
-        // すでに完了処理が走っていたらスキップ
-        if (screen.classList.contains('animating-out')) return;
-        screen.classList.add('animating-out');
-
-        // 2. 少し待ってからカーテンを開く
+        screen.classList.add('finished');
+        
+        // 3. アニメーション完了後にお片付け
         setTimeout(() => {
-          screen.classList.add('finished');
-          
-          // 3. アニメーション完了後にお片付け
-          setTimeout(() => {
-            screen.style.display = 'none';
-            document.body.style.overflow = ''; // スクロール解除
-            sessionStorage.setItem(key, 'true');
-          }, 1200); // CSS transition time (1.2s)
-        }, 1200); // ロゴ表示時間
-      };
+          screen.style.display = 'none';
+          document.body.style.overflow = ''; // スクロール解除
+          document.documentElement.classList.remove('is-loading');
+          sessionStorage.setItem(key, 'true');
+        }, 1200); // CSS transition time (1.2s)
+      }, 1200); // ロゴ表示時間
+    };
 
-      window.addEventListener('load', finishAnimation);
-      // フォールバック（ロードが遅い場合やSPA遷移時など）
-      setTimeout(finishAnimation, 3000);
-    }
+    window.addEventListener('load', finishAnimation);
+    // フォールバック
+    setTimeout(finishAnimation, 3000);
+  } else if (screen) {
+    // 2回目以降は確実に非表示
+    screen.style.display = 'none';
   }
 </script>
+
+<style is:global>
+  .is-loading .loading-screen {
+    display: flex !important;
+  }
+</style>
 
 <style>
   .loading-screen {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
   }
@@ -93,7 +110,7 @@
   }
 
   .loading-logo {
-    width: 180px; /* ロゴを大きく */
+    width: 180px;
     height: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
