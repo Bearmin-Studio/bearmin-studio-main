@@ -9,6 +9,26 @@ interface Props {
 }
 
 const { items } = Astro.props;
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : "https://bearmin.jp";
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": `${siteUrl}/`
+    },
+    ...items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": item.label,
+      ...(item.href ? { "item": `${siteUrl}${item.href}` } : {})
+    }))
+  ]
+});
 ---
 
 <nav class="breadcrumb" aria-label="パンくずリスト">
@@ -25,6 +45,7 @@ const { items } = Astro.props;
     ))}
   </ol>
 </nav>
+<script is:inline type="application/ld+json" set:html={breadcrumbSchema} />
 
 <style>
   .breadcrumb {
