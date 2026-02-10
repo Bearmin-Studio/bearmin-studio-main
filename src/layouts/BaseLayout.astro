@@ -27,34 +27,43 @@ const bgMap = {
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : "https://bearmin.jp";
 
-const schema = JSON.stringify([
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${siteUrl}/#website`,
-    "name": "Bearmin Studio",
-    "alternateName": "ベアミン",
-    "url": `${siteUrl}/`,
-    "description": description,
-    "publisher": { "@id": `${siteUrl}/#organization` },
-    "inLanguage": "ja"
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${siteUrl}/#organization`,
-    "name": "Bearmin Studio",
-    "alternateName": "ベアミン",
-    "url": `${siteUrl}/`,
-    "logo": `${siteUrl}/favicon.ico`,
-    "description": "個人事業主やスタートアップのためのWeb制作スタジオです。想いや空気感をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。",
-    "serviceType": ["Webサイト制作", "Webデザイン", "保守・改善"],
-    "areaServed": {
-      "@type": "Country",
-      "name": "JP"
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "name": "Bearmin Studio",
+      "alternateName": "ベアミン",
+      "url": `${siteUrl}/`,
+      "description": description,
+      "publisher": { "@id": `${siteUrl}/#organization` },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${siteUrl}/#organization`,
+      "name": "Bearmin Studio",
+      "alternateName": "ベアミン",
+      "url": `${siteUrl}/`,
+      "logo": `${siteUrl}/favicon.ico`,
+      "description": "個人事業主やスタートアップのためのWeb制作スタジオです。想いや空気感をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "今池5-33-2",
+        "addressLocality": "名古屋市千種区",
+        "addressRegion": "愛知県",
+        "postalCode": "464-0850",
+        "addressCountry": "JP"
+      },
+      "serviceType": ["Webサイト制作", "Webデザイン", "保守・改善"],
+      "areaServed": {
+        "@type": "Country",
+        "name": "JP"
+      }
     }
-  }
-]);
+  ]
+});
 ---
 
 <!DOCTYPE html>
