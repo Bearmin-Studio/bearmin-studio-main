@@ -32,16 +32,16 @@ const formatDate = (dateString: string) => {
 };
 ---
 
-<BaseLayout 
-  title={news.title} 
-  description={news.excerpt || `${news.title} - Bearmin Studio | ベアミンスタジオスタジオからのお知らせ。`}
+<BaseLayout
+  title={news.title}
+  description={news.excerpt || `${news.title} - Bearmin Studio | ベアミンスタジオからのお知らせ。`}
 >
 
   <Breadcrumb items={[{ label: 'お知らせ', href: '/news' }, { label: news.title }]} />
 
   <div class="page-header">
     <div class="header-meta">
-      <p class="page-date">{formatDate(news.date || news.publishedAt)}</p>
+      <p class="article-date">{formatDate(news.date || news.publishedAt)}</p>
       {news.tags && news.tags.length > 0 && (
         <div class="news-tags">
           {news.tags.map((tag) => (
@@ -53,28 +53,41 @@ const formatDate = (dateString: string) => {
     <h1 class="page-title">{news.title}</h1>
   </div>
 
-  <div class="news-detail">
-    {news.content && <div class="news-content" set:html={news.content} />}
+  <section class="article-section">
+    <div class="article-wrap">
+      {news.content && <div class="article-body" set:html={news.content} />}
 
-    <div class="news-back">
-      <a href="/news">&larr; お知らせ一覧に戻る</a>
+      <div class="article-back">
+        <a href="/news">← お知らせ一覧に戻る</a>
+      </div>
     </div>
-  </div>
+  </section>
 
 </BaseLayout>
 
 <style>
+  .page-header {
+    padding-top: 2.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header {
+      padding-top: 1.5rem;
+    }
+  }
+
   .header-meta {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
-  .page-date {
+  .article-date {
     font-size: 0.875rem;
     color: var(--bear-brown);
+    opacity: 0.8;
   }
 
   .news-tags {
@@ -92,21 +105,27 @@ const formatDate = (dateString: string) => {
     border-radius: 4px;
   }
 
-  .news-detail {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 0 2rem 6rem;
+  /* Article */
+  .article-section {
+    background: var(--soft-white);
+    padding: 3rem 2rem 8rem;
   }
 
-  .news-content {
+  .article-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .article-body {
     line-height: 2.2;
   }
 
-  .news-content :global(p) {
+  .article-body :global(p) {
     margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
   }
 
-  .news-content :global(h2) {
+  .article-body :global(h2) {
     font-family: var(--font-accent);
     font-size: 1.25rem;
     font-weight: 500;
@@ -114,7 +133,7 @@ const formatDate = (dateString: string) => {
     margin: 3rem 0 1.5rem;
   }
 
-  .news-content :global(h3) {
+  .article-body :global(h3) {
     font-family: var(--font-accent);
     font-size: 1.125rem;
     font-weight: 500;
@@ -122,38 +141,50 @@ const formatDate = (dateString: string) => {
     margin: 2rem 0 1rem;
   }
 
-  .news-content :global(a) {
+  .article-body :global(a) {
     color: var(--moss-green);
     text-decoration: underline;
   }
 
-  .news-content :global(img) {
+  .article-body :global(img) {
     max-width: 100%;
     height: auto;
     border-radius: 6px;
     margin: 1.5rem 0;
   }
 
-  .news-back {
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-body :global(li) {
+    font-size: 0.9375rem;
+    line-height: 2;
+    margin-bottom: 0.25rem;
+  }
+
+  .article-back {
     margin-top: 4rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(107, 78, 61, 0.12);
   }
 
-  .news-back a {
+  .article-back a {
     color: var(--bear-brown);
     text-decoration: none;
     font-size: 0.875rem;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
   }
 
-  .news-back a:hover {
-    opacity: 0.7;
+  .article-back a:hover {
+    opacity: 0.65;
   }
 
   @media (max-width: 768px) {
-    .news-detail {
-      padding: 0 1.5rem 4rem;
+    .article-section {
+      padding: 2rem 1.5rem 6rem;
     }
   }
 </style>

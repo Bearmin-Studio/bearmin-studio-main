@@ -3,125 +3,192 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 ---
 
-<BaseLayout 
-  title="私たちについて" 
-  description="Bearmin Studio | ベアミンスタジオスタジオの理念やプロフィールをご紹介します。森のように豊かなWebサイト制作を目指しています。"
+<BaseLayout
+  title="私たちについて"
+  description="Bearmin Studio | ベアミンスタジオの理念やプロフィールをご紹介します。森のように豊かなWebサイト制作を目指しています。"
 >
 
-  <Breadcrumb items={[{ label: 'Bearmin Studioについて' }]} />
+  <Breadcrumb items={[{ label: 'About' }]} />
 
   <div class="page-header">
+    <p class="eyebrow">About</p>
     <h1 class="page-title">Bearmin Studioについて</h1>
     <p class="page-lead">Bearmin Studioだからできること。</p>
   </div>
 
-  <div class="about-content">
-
-    <div class="about-section">
-      <h2 class="about-section-title">想い</h2>
-      <h3 style="margin: 32px 0;">すべての人にWebサイトを。</h3>
-      <p>いつか、名刺を持つようにWebサイトを持つ時代がくると思っています。<br />
-      個人で事業を始めた方も、小さなチームで挑戦している方も、想いを届ける場所を持てるように。</p>
-      <p>Bearmin Studioは、そんな「はじめの一歩」を一緒につくるスタジオです。</p>
-
-      <p>Bearmin Studio の「Bearmin」は、クマ（Bear）に由来しています。<br />
-        同時に、「Be arm」——手助けをする、という意味も込めました。<br />
-        あなたのそばで、あなたの「腕」となって支える存在でありたい。<br />
-        クマのもつ安心感や親しみやすさ、どっしりとした信頼感。<br />
-        そんな想いを屋号に込めています。</p>
-    </div>
-
-    <div class="about-section">
-      <h2 class="about-section-title">大切にしていること</h2>
-      <div class="values">
-        <div class="value-item">
-          <h3>まず、聴くこと</h3>
-          <p>何を作りたいかの前に、何を届けたいかを聴かせてください。<br/>
-          言葉にならない想いも、会話の中からすくい取ります。</p>
-        </div>
-        <div class="value-item">
-          <h3>世界観ごと、つくること</h3>
-          <p>見た目だけのデザインではなく、あなたの事業の空気感や温度がにじむWebサイトをつくります。</p>
-        </div>
-        <div class="value-item">
-          <h3>つくって終わりにしないこと</h3>
-          <p>Webサイトは育てていくもの。<br/>公開後の小さな修正や改善も、気軽にご相談ください。</p>
+  <!-- 想い + 大切にしていること -->
+  <section class="about-section">
+    <div class="about-wrap">
+      <div class="about-col">
+        <p class="label">— 想い</p>
+        <h2 class="about-heading">すべての人に、<br>Webサイトを。</h2>
+        <p>いつか、名刺を持つようにWebサイトを持つ時代がくると思っています。個人で事業を始めた方も、小さなチームで挑戦している方も、想いを届ける場所を持てるように。</p>
+        <p>Bearmin Studioは、そんな「はじめの一歩」を一緒につくるスタジオです。</p>
+        <p>「Bearmin」はクマ（Bear）に由来し、同時に「Be arm」——手助けをする、という意味も込めました。あなたのそばで、あなたの「腕」となって支える存在でありたい。クマのもつ安心感、どっしりとした信頼感。そんな想いを屋号に込めています。</p>
+      </div>
+      <div class="about-col">
+        <p class="label">— 大切にしていること</p>
+        <div class="values">
+          <div class="value-item">
+            <h3>まず、聴くこと</h3>
+            <p>何を作りたいかの前に、何を届けたいかを聴かせてください。言葉にならない想いも、会話の中からすくい取ります。</p>
+          </div>
+          <div class="value-item">
+            <h3>世界観ごと、つくること</h3>
+            <p>見た目だけのデザインではなく、あなたの事業の世界観や温度がにじむWebサイトをつくります。</p>
+          </div>
+          <div class="value-item">
+            <h3>つくって終わりにしないこと</h3>
+            <p>Webサイトは育てていくもの。公開後の小さな修正や改善も、気軽にご相談ください。</p>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="about-section">
-      <h2 class="about-section-title">代表（村長）について</h2>
-      <div class="profile">
+  <!-- Profile -->
+  <section class="profile-section">
+    <div class="profile-wrap">
+      <p class="label">— 代表について</p>
+      <div class="profile-grid">
         <div class="profile-image">
           <img src="/images/profile.png" alt="Mikuru Terasaki" />
         </div>
-        <p class="profile-name">Mikuru Terasaki</p>
+        <div class="profile-body">
+          <p class="profile-name">Mikuru Terasaki</p>
+          <p>14歳のときにWeb制作と出会い、独学で学びはじめました。高校3年生のときに地域共創イベントを主催する会社を起業。人と関わるなかで「届けたい想いを持っている人の力になりたい」という気持ちが強くなり、個人事業主としてWeb制作の道へ。</p>
+          <p>得意なことは、人の気持ちを汲み取ること。言葉にしきれない想いも、会話の中から一緒に見つけていきます。</p>
+          <p>趣味は食べ歩きをすること。</p>
+        </div>
       </div>
-      <p>14歳のときにWeb制作と出会い、独学で学びはじめました。<br />
-      高校3年生のときに地域共創イベントを主催する会社を起業。<br/>
-      人と関わるなかで「届けたい想いを持っている人の力になりたい」という気持ちが強くなり、個人事業主としてWeb制作の道へ。</p>
-      <p>得意なことは、人の気持ちを汲み取ること。<br/>
-      言葉にしきれない想いも、会話の中から一緒に見つけていきます。</p>
-      <p>趣味は食べ歩きをすること。</p>
     </div>
-  </div>
+  </section>
 
-  <div class="about-cta">
-    <p>お仕事のご相談、お気軽にどうぞ。</p>
-    <a href="/contact" class="btn-primary">相談してみる</a>
-  </div>
+  <!-- CTA -->
+  <section class="cta-section">
+    <p class="eyebrow">Contact</p>
+    <h2 class="cta-heading">お仕事のご相談、<br>お気軽にどうぞ。</h2>
+    <a href="/contact" class="cta-btn">相談してみる</a>
+  </section>
 
 </BaseLayout>
 
 <style>
-  .about-content {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 0 2rem 6rem;
-  }
-
-  .about-section {
-    margin-bottom: 5rem;
-  }
-
-  .about-section:last-child {
-    margin-bottom: 0;
-  }
-
-  .about-section-title {
+  .eyebrow {
     font-family: var(--font-accent);
-    font-size: 1.25rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    color: var(--moss-green);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .page-header {
+    padding-top: 2.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header {
+      padding-top: 1.5rem;
+    }
+  }
+
+  .label {
+    font-family: var(--font-accent);
+    font-size: 0.6875rem;
+    color: var(--moss-green);
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+    margin-bottom: 1.5rem;
+  }
+
+  /* About */
+  .about-section {
+    background: var(--soft-white);
+    padding: 7rem 2rem;
+  }
+
+  .about-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-heading {
+    font-family: var(--font-accent);
+    font-size: clamp(1.875rem, 3.5vw, 2.5rem);
     font-weight: 500;
     color: var(--bear-brown);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(107, 78, 61, 0.15);
+    line-height: 1.35;
+    margin-bottom: 2rem;
   }
 
-  .about-section p {
-    margin-bottom: 1.5rem;
+  .about-col p {
+    font-size: 0.9375rem;
     line-height: 2.2;
+    opacity: 0.8;
+    margin-bottom: 1.25rem;
   }
 
-  .about-section p:last-child {
+  .about-col p:last-child {
     margin-bottom: 0;
+  }
+
+  .values {
+    border-top: 1px solid rgba(107, 78, 61, 0.1);
+  }
+
+  .value-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.08);
+  }
+
+  .value-item:last-child {
+    border-bottom: none;
+  }
+
+  .value-item h3 {
+    font-family: var(--font-accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--bear-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .value-item p {
+    font-size: 0.875rem;
+    line-height: 1.9;
+    opacity: 0.75;
+    margin: 0;
   }
 
   /* Profile */
-  .profile {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
+  .profile-section {
+    background: var(--warm-greige);
+    padding: 7rem 2rem;
+  }
+
+  .profile-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 3.5rem;
+    align-items: start;
   }
 
   .profile-image {
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    background: var(--warm-greige);
     overflow: hidden;
+    background: var(--soft-white);
     flex-shrink: 0;
   }
 
@@ -133,58 +200,78 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 
   .profile-name {
     font-family: var(--font-accent);
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     font-weight: 500;
     color: var(--bear-brown);
+    margin-bottom: 1.25rem !important;
+    opacity: 1 !important;
   }
 
-  /* Values */
-  .values {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .value-item {
-    padding: 1.5rem;
-    background: var(--warm-greige);
-    border-radius: 6px;
-  }
-
-  .value-item h3 {
-    font-family: var(--font-accent);
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--bear-brown);
-    margin-bottom: 0.5rem;
-  }
-
-  .value-item p {
+  .profile-body p {
     font-size: 0.9375rem;
+    line-height: 2.2;
+    opacity: 0.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .profile-body p:last-child {
     margin-bottom: 0;
   }
 
   /* CTA */
-  .about-cta {
+  .cta-section {
+    background: var(--soft-white);
+    padding: 7rem 2rem;
     text-align: center;
-    padding: 4rem 2rem 6rem;
-    background: var(--warm-greige);
   }
 
-  .about-cta p {
-    margin-bottom: 2rem;
+  .cta-heading {
+    font-family: var(--font-accent);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 500;
+    color: var(--bear-brown);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--moss-green);
+    color: var(--soft-white);
+    padding: 1rem 3rem;
+    border-radius: 4px;
+    text-decoration: none;
     font-size: 0.9375rem;
-    opacity: 0.85;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .cta-btn:hover {
+    background: var(--bear-brown);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 900px) {
+    .about-wrap {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
   }
 
   @media (max-width: 768px) {
-    .about-content {
-      padding: 0 1.5rem 4rem;
+    .about-section,
+    .profile-section,
+    .cta-section {
+      padding: 5rem 1.5rem;
     }
 
-    .about-section {
-      margin-bottom: 3.5rem;
+    .profile-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .profile-image {
+      width: 120px;
+      height: 120px;
     }
   }
 </style>

@@ -14,7 +14,7 @@ interface Props {
 
 const { 
   title,
-  description = "Bearmin Studio | ベアミンスタジオスタジオは、個人事業主やスタートアップのためのWeb制作スタジオです。想いや空気感をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。", 
+  description = "Bearmin Studio | ベアミンスタジオは、個人事業主やスタートアップのためのWeb制作スタジオです。想いや世界観をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。", 
   bgColor = 'soft-white', 
   headerVariant = 'default', 
   verticalCenter = false 
@@ -47,7 +47,7 @@ const schema = JSON.stringify({
       "alternateName": "ベアミン",
       "url": `${siteUrl}/`,
       "logo": `${siteUrl}/favicon.ico`,
-      "description": "個人事業主やスタートアップのためのWeb制作スタジオです。想いや空気感をていねいにすくい取り、「らしさ」が伝わるWebサイトをつくります。",
+      "description": "個人事業主やスタートアップのためのWeb制作スタジオです。Webサイト制作から、カップル向け記念日ブラウザゲームの制作まで、想いをかたちにします。",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "今池5-33-2",
@@ -56,7 +56,7 @@ const schema = JSON.stringify({
         "postalCode": "464-0850",
         "addressCountry": "JP"
       },
-      "serviceType": ["Webサイト制作", "Webデザイン", "保守・改善"],
+      "serviceType": ["Webサイト制作", "Webデザイン", "保守・改善", "ブラウザゲーム制作", "記念日ゲーム制作"],
       "areaServed": {
         "@type": "Country",
         "name": "JP"
@@ -71,7 +71,7 @@ const schema = JSON.stringify({
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title ? `${title} - Bearmin Studio | ベアミンスタジオスタジオ` : 'Bearmin Studio | ベアミンスタジオスタジオ'}</title>
+  <title>{title ? `${title} - Bearmin Studio | ベアミンスタジオ` : 'Bearmin Studio | ベアミンスタジオ'}</title>
   <meta name="description" content={description}>
   <meta property="og:site_name" content="Bearmin Studio">
   <link rel="preconnect" href="https://fonts.googleapis.com">
