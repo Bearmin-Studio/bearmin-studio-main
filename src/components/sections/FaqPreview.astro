@@ -1,0 +1,27 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import FaqItem from '../ui/FaqItem.astro';
+import Button from '../ui/Button.astro';
+import { FAQS } from '../../data/faqs';
+
+const preview = FAQS.slice(0, 5);
+---
+
+<Section tone="paper" spacing="lg">
+  <Container size="md">
+    <SectionHeader
+      eyebrow="FAQ"
+      title="よくあるご質問"
+      description="ご契約・サービス内容・プランについて、特に多いご質問をまとめました。"
+      align="center"
+    />
+    <div class="mx-auto mt-12 flex flex-col gap-3">
+      {preview.map((faq, i) => <FaqItem question={faq.question} answer={faq.answer} open={i === 0} />)}
+    </div>
+    <div class="mt-10 text-center">
+      <Button href="/faq" variant="ghost">よくあるご質問をすべて見る</Button>
+    </div>
+  </Container>
+</Section>

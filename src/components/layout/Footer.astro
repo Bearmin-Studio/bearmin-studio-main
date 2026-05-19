@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import logoHorizontal from '../../assets/logo/logo-horizontal.png';
+import { COMPANY, FOOTER_LINKS, SITE } from '../../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink text-paper-soft">
+  <div class="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <a href="/" class="inline-flex items-center" aria-label={`${SITE.name} トップへ`}>
+          <Image
+            src={logoHorizontal}
+            alt={SITE.name}
+            widths={[180, 240, 320]}
+            sizes="(max-width: 768px) 160px, 200px"
+            class="h-10 w-auto brightness-0 invert"
+          />
+        </a>
+      </div>
+
+      <nav aria-label="フッターナビゲーション">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Pages</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          {
+            FOOTER_LINKS.map((link) => (
+              <li>
+                <a href={link.href} class="text-paper-soft/75 transition-colors hover:text-paper-soft">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Contact</p>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href={`mailto:${COMPANY.email}`} class="text-paper-soft/75 transition-colors hover:text-paper-soft">
+              {COMPANY.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={COMPANY.chatworkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-paper-soft/75 transition-colors hover:text-paper-soft"
+            >
+              Chatwork: {COMPANY.chatworkId}
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-3.5 w-3.5">
+                <path d="M11 3a1 1 0 1 0 0 2h2.586l-6.293 6.293a1 1 0 0 0 1.414 1.414L15 6.414V9a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-5Z" />
+                <path d="M5 5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3a1 1 0 1 0-2 0v3H5V7h3a1 1 0 0 0 0-2H5Z" />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href={COMPANY.xUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-paper-soft/75 transition-colors hover:text-paper-soft"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-3.5 w-3.5">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              : {COMPANY.xHandle}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t border-paper-soft/15 pt-6 text-xs text-paper-soft/60">
+      <p>© {year} {SITE.name}</p>
+      <a href="/privacy" class="transition-colors hover:text-paper-soft">プライバシーポリシー</a>
+    </div>
+  </div>
+</footer>

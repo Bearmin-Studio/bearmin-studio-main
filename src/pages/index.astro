@@ -1,11 +1,20 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Concerns from '../components/sections/Concerns.astro';
+import ServicesOverview from '../components/sections/ServicesOverview.astro';
+import Features from '../components/sections/Features.astro';
+import CasesPreview from '../components/sections/CasesPreview.astro';
+import NewsPreview from '../components/sections/NewsPreview.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  description="日々の手作業を自動化する月額制サービス。Excel・スプレッドシート自動化、RPA導入、業務システム構築を月額29,800円から。最低3ヶ月、対面・電話0回でもOK、Chatwork完結。"
+>
+  <Hero />
+  <Concerns />
+  <ServicesOverview />
+  <Features />
+  <CasesPreview />
+  <NewsPreview />
+</BaseLayout>

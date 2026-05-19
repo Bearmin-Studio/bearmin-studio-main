@@ -1,0 +1,37 @@
+---
+type Props = {
+  as?: 'div' | 'article' | 'li';
+  tone?: 'paper-soft' | 'paper' | 'ink';
+  padding?: 'sm' | 'md' | 'lg';
+  hover?: boolean;
+  class?: string;
+};
+
+const {
+  as: Tag = 'div',
+  tone = 'paper-soft',
+  padding = 'md',
+  hover = false,
+  class: className = '',
+} = Astro.props;
+
+const toneClass: Record<NonNullable<Props['tone']>, string> = {
+  'paper-soft': 'bg-paper-soft border border-line',
+  paper: 'bg-paper border border-line/70',
+  ink: 'bg-ink text-paper-soft border border-ink',
+};
+
+const paddingClass: Record<NonNullable<Props['padding']>, string> = {
+  sm: 'p-5',
+  md: 'p-6 md:p-7',
+  lg: 'p-8 md:p-10',
+};
+
+const hoverClass = hover
+  ? 'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]'
+  : '';
+---
+
+<Tag class:list={['rounded-xl shadow-[var(--shadow-card)]', toneClass[tone], paddingClass[padding], hoverClass, className]}>
+  <slot />
+</Tag>

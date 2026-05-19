@@ -1,0 +1,26 @@
+---
+type Props = {
+  id?: string;
+  tone?: 'paper' | 'paper-soft' | 'ink';
+  spacing?: 'sm' | 'md' | 'lg';
+  class?: string;
+};
+
+const { id, tone = 'paper', spacing = 'lg', class: className = '' } = Astro.props;
+
+const toneClass: Record<NonNullable<Props['tone']>, string> = {
+  paper: 'bg-paper text-ink',
+  'paper-soft': 'bg-paper-soft text-ink',
+  ink: 'bg-ink text-paper-soft',
+};
+
+const spacingClass: Record<NonNullable<Props['spacing']>, string> = {
+  sm: 'py-12 md:py-16',
+  md: 'py-16 md:py-24',
+  lg: 'py-20 md:py-32',
+};
+---
+
+<section id={id} class:list={[toneClass[tone], spacingClass[spacing], className]}>
+  <slot />
+</section>

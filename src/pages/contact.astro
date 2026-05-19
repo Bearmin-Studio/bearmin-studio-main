@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import { COMPANY } from '../lib/site';
+import { PLANS } from '../data/plans';
+
+const endpoint = import.meta.env.PUBLIC_SSGFORM_ENDPOINT ?? '';
+const formReady = endpoint.length > 0;
+---
+
+<BaseLayout
+  title="お問い合わせ"
+  description="Bearmin Studio へのお問い合わせ。Chatwork なら1行から相談できます。"
+>
+  <section class="bg-paper-soft border-b border-line">
+    <Container class="py-16 md:py-20">
+      <p class="eyebrow">Contact</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold leading-[1.2] tracking-tight md:text-5xl">お問い合わせ</h1>
+      <p class="mt-5 max-w-2xl text-pretty text-base leading-[2] text-ink-soft">
+        <span class="inline-block">ふんわりした相談でも大丈夫です。</span><span class="inline-block">内容を整理しながらお返事します。</span>
+      </p>
+    </Container>
+  </section>
+
+  <!-- ============================== -->
+  <!-- Chatwork hero band (Featured) -->
+  <!-- ============================== -->
+  <section class="bg-paper">
+    <Container class="py-14 md:py-20">
+      <div class="rounded-2xl border border-line bg-paper-soft p-7 shadow-[var(--shadow-card)] md:p-10">
+        <div class="grid items-center gap-8 md:grid-cols-[1.3fr_1fr] md:gap-10">
+          <div>
+            <h2 class="mt-5 break-keep text-balance text-2xl font-bold leading-[1.3] tracking-tight md:text-2xl lg:text-3Chatwork ID
+
+@bearmin
+
+Chatworkを開く
+新規ウィンドウで開きますxl">
+              <span class="inline-block">Chatworkで</span><wbr /><span class="inline-block"><span class="text-accent-deep">一言</span>送るだけ。</span>
+            </h2>
+            <p class="mt-5 text-pretty text-sm leading-[1.95] text-ink-soft md:text-base">
+              <span class="inline-block">「相談したい」と一行送るだけで大丈夫です。</span><br>
+              <span class="inline-block">対面 0回／電話 0回、あなたの返信できるタイミングに合わせて進めます。</span>
+              <span class="inline-block">Chatworkアカウントをお持ちでない場合は、</span><span class="inline-block">無料アカウントの取得をご案内します。</span>
+            </p>
+          </div>
+
+          <div>
+            <div class="border-l border-line pl-6 md:pl-8">
+              <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-deep">Chatwork ID</p>
+              <p class="mt-2 font-mono text-xl font-bold text-ink md:text-xl">{COMPANY.chatworkId}</p>
+              <a
+                href={COMPANY.chatworkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-paper-soft transition-colors hover:bg-ink-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper md:text-base"
+              >
+                Chatworkを開く
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-4 w-4">
+                  <path d="M11 3a1 1 0 1 0 0 2h2.586l-6.293 6.293a1 1 0 0 0 1.414 1.414L15 6.414V9a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-5Z" />
+                  <path d="M5 5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3a1 1 0 1 0-2 0v3H5V7h3a1 1 0 0 0 0-2H5Z" />
+                </svg>
+              </a>
+              <p class="mt-3 text-center text-[11px] text-ink-muted">新規ウィンドウで開きます</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="mx-auto my-12 flex max-w-md items-center gap-4 md:my-16">
+        <span class="h-px flex-1 bg-line"></span>
+        <span class="text-[11px] font-mono uppercase tracking-[0.22em] text-ink-muted">または</span>
+        <span class="h-px flex-1 bg-line"></span>
+      </div>
+
+      <!-- ============================== -->
+      <!-- Form (secondary) -->
+      <!-- ============================== -->
+      <div class="mx-auto max-w-2xl">
+        <div class="text-center">
+          <p class="eyebrow-sm text-ink-muted">Form</p>
+          <h2 class="mt-2 text-2xl font-bold tracking-tight md:text-3xl">メールで詳しく相談する</h2>
+          <p class="mt-3 text-sm text-ink-muted">
+            いただいた内容は {COMPANY.email} で確認後、<br class="hidden md:block" />2営業日以内にメールにて返信いたします。
+          </p>
+        </div>
+
+        {
+          formReady ? (
+            <form
+              action={endpoint}
+              method="POST"
+              class="mt-10 flex flex-col gap-6"
+              data-contact-form
+            >
+              <div>
+                <label for="name" class="block text-sm font-semibold text-ink">
+                  お名前 <span class="text-ink-muted text-xs font-normal">（必須）</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="お名前"
+                  required
+                  autocomplete="name"
+                  class="mt-2 block w-full rounded-lg border border-line bg-paper-soft px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-ink focus:ring-2 focus:ring-ink/10"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-semibold text-ink">
+                  メールアドレス <span class="text-ink-muted text-xs font-normal">（必須）</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="メールアドレス"
+                  required
+                  autocomplete="email"
+                  class="mt-2 block w-full rounded-lg border border-line bg-paper-soft px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-ink focus:ring-2 focus:ring-ink/10"
+                />
+              </div>
+
+              <div>
+                <label for="plan" class="block text-sm font-semibold text-ink">
+                  希望のプラン <span class="text-ink-muted text-xs font-normal">（任意）</span>
+                </label>
+                <div class="relative mt-2">
+                  <select
+                    id="plan"
+                    name="希望のプラン"
+                    data-plan-select
+                    class="block w-full appearance-none rounded-lg border border-line bg-paper-soft px-4 py-3 pr-10 text-base text-ink outline-none transition-colors focus:border-ink focus:ring-2 focus:ring-ink/10"
+                  >
+                    <option value="未定・相談したい">未定・まず相談したい</option>
+                    {PLANS.map((p) => (
+                      <option value={p.name}>{p.name}（{p.feeLabel} / 月）</option>
+                    ))}
+                  </select>
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 0 1 1.06 0L10 10.94l3.71-3.73a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.23 8.27a.75.75 0 0 1 0-1.06Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-semibold text-ink">
+                  ご相談内容 <span class="text-ink-muted text-xs font-normal">（必須）</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="ご相談内容"
+                  required
+                  rows="7"
+                  placeholder="例:毎月の売上集計に時間がかかっていて、自動化できる方法を相談したい。"
+                  class="mt-2 block w-full rounded-lg border border-line bg-paper-soft px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-ink-subtle focus:border-ink focus:ring-2 focus:ring-ink/10"
+                ></textarea>
+              </div>
+
+              <label class="flex items-start gap-3 text-sm text-ink-soft">
+                <input
+                  type="checkbox"
+                  required
+                  class="mt-1 h-4 w-4 rounded border-line text-ink accent-ink focus:ring-2 focus:ring-ink/30"
+                />
+                <span>
+                  <a href="/privacy" class="font-medium text-ink underline-offset-2 hover:underline">プライバシーポリシー</a>に同意のうえ送信します。<br />
+                  <span class="text-xs text-ink-muted">いただいた情報は、ご返信および契約手続き以外には使用しません。</span>
+                </span>
+              </label>
+
+              <div class="pt-2">
+                <Button type="submit" size="lg" fullWidth>送信する</Button>
+              </div>
+            </form>
+          ) : (
+            <div class="mt-10 rounded-2xl border border-line bg-paper-soft p-8 text-center">
+              <p class="text-base font-semibold text-ink">フォームを準備中です</p>
+              <p class="mt-3 text-sm leading-relaxed text-ink-soft">
+                準備が整うまで、お手数ですが上記の Chatwork またはメール宛にご連絡ください。
+              </p>
+            </div>
+          )
+        }
+
+        <!-- Direct email link -->
+        <div class="mt-14 rounded-xl border border-line bg-paper-soft p-5 text-center">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">Email</p>
+          <a
+            href={`mailto:${COMPANY.email}`}
+            class="mt-2 inline-block break-all text-base font-bold text-ink underline-offset-2 hover:underline"
+          >
+            {COMPANY.email}
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get('plan');
+  if (plan) {
+    const select = document.querySelector<HTMLSelectElement>('[data-plan-select]');
+    if (select) {
+      const map: Record<string, string> = {
+        light: 'ライトプラン',
+        standard: 'スタンダードプラン',
+        premium: 'プレミアムプラン',
+      };
+      const label = map[plan];
+      if (label) {
+        const option = Array.from(select.options).find((o) => o.value.startsWith(label));
+        if (option) select.value = option.value;
+      }
+    }
+  }
+</script>

@@ -1,0 +1,50 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Button from '../ui/Button.astro';
+import { fetchNewsList } from '../../lib/microcms';
+import { NEWS_CATEGORY_LABEL } from '../../types/news';
+import { formatDate } from '../../lib/date';
+
+const { contents } = await fetchNewsList({ limit: 3 });
+---
+
+<Section tone="paper-soft" spacing="lg">
+  <Container>
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <SectionHeader eyebrow="News" title="お知らせ" />
+      <Button href="/news" variant="ghost">すべてのお知らせ</Button>
+    </div>
+
+    {
+      contents.length === 0 ? (
+        <div class="mt-12 rounded-2xl border border-line bg-paper p-10 text-center">
+          <p class="text-sm text-ink-muted">現在、お知らせはありません。</p>
+        </div>
+      ) : (
+        <ul class="mt-12 divide-y divide-line overflow-hidden rounded-2xl border border-line bg-paper">
+          {contents.map((item) => (
+            <li>
+              <a
+                href={`/news/${item.id}`}
+                class="flex flex-col gap-2 px-6 py-5 transition-colors hover:bg-line-soft md:flex-row md:items-center md:gap-6 md:px-8 md:py-6"
+              >
+                <time class="font-mono text-xs text-ink-muted md:text-sm" datetime={item.publishedAt ?? item.createdAt}>
+                  {formatDate(item.publishedAt ?? item.createdAt)}
+                </time>
+                <span class="inline-flex w-fit items-center rounded-full bg-line-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink-soft md:text-[10px]">
+                  {NEWS_CATEGORY_LABEL[item.category] ?? 'お知らせ'}
+                </span>
+                <span class="flex-1 text-sm font-medium text-ink md:text-[15px]">{item.title}</span>
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="hidden h-4 w-4 flex-none text-ink-subtle md:block">
+                  <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 0 1 0-1.06L10.94 10 7.21 6.29a.75.75 0 1 1 1.06-1.06l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0Z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Container>
+</Section>

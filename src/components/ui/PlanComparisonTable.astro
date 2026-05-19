@@ -1,0 +1,59 @@
+---
+import { PLAN_FEATURES, PLANS } from '../../data/plans';
+---
+
+<div class="overflow-x-auto rounded-2xl border border-line bg-paper-soft">
+  <table class="w-full min-w-[640px] text-left text-sm">
+    <thead>
+      <tr class="border-b border-line text-center">
+        <th scope="col" class="px-5 py-5 text-left text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted">
+          プラン
+        </th>
+        {
+          PLANS.map((plan) => (
+            <th scope="col" class="px-5 py-5">
+              <div class="flex flex-col items-center gap-1">
+                <span class:list={['text-xs font-semibold uppercase tracking-[0.16em]', plan.recommended ? 'text-ink' : 'text-ink-muted']}>
+                  {plan.recommended ? 'おすすめ' : ' '}
+                </span>
+                <span class="text-base font-bold text-ink">{plan.name}</span>
+                <span class="text-sm font-semibold text-ink-soft">{plan.feeLabel} / 月</span>
+              </div>
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-line text-center">
+      {
+        PLAN_FEATURES.map((feature) => (
+          <tr>
+            <th scope="row" class="px-5 py-4 text-left text-sm font-medium text-ink">
+              {feature.label}
+            </th>
+            {
+              PLANS.map((plan) => {
+                const v = feature.values[plan.id];
+                return (
+                  <td class="px-5 py-4 align-middle text-ink-soft">
+                    {typeof v === 'boolean' ? (
+                      v ? (
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto h-5 w-5 text-accent-deep">
+                          <path fill-rule="evenodd" d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4l3.3 3.3 7.3-7.3a1 1 0 0 1 1.4 0Z" clip-rule="evenodd" />
+                        </svg>
+                      ) : (
+                        <span class="text-ink-subtle" aria-label="非対応">—</span>
+                      )
+                    ) : (
+                      <span class="text-sm font-medium text-ink">{v}</span>
+                    )}
+                  </td>
+                );
+              })
+            }
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

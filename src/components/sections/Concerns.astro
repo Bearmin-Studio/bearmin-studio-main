@@ -1,0 +1,43 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import CharacterMascot from '../ui/CharacterMascot.astro';
+import { CONCERNS } from '../../data/concerns';
+---
+
+<Section tone="paper-soft" spacing="md">
+  <Container class="grid gap-12 md:grid-cols-[1fr_2fr] md:items-center">
+    <div class="md:max-w-sm">
+      <SectionHeader
+        eyebrow="Worries"
+        title="よくあるお悩み"
+        description="ひとつでも当てはまるなら、Bearmin Studio がお力になれるかもしれません。"
+      />
+      <div class="mt-8 hidden md:block">
+        <CharacterMascot pose="think" alt="" size="md" />
+      </div>
+    </div>
+    <ul class="grid gap-3 sm:grid-cols-2">
+      {
+        CONCERNS.map((concern) => (
+          <li class="flex items-start gap-3 rounded-xl border border-line bg-paper p-4 transition-colors hover:border-ink/30">
+            <span
+              class="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-full bg-ink text-paper-soft"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-13a.75.75 0 0 0-1.5 0v5a.75.75 0 0 0 .22.53l3 3a.75.75 0 1 0 1.06-1.06l-2.78-2.78V5Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <p class="text-sm leading-relaxed text-ink-soft md:text-[15px]">{concern.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>

@@ -1,0 +1,45 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import CharacterMascot from '../ui/CharacterMascot.astro';
+import { FEATURES } from '../../data/features';
+---
+
+<Section tone="paper-soft" spacing="lg">
+  <Container>
+    <SectionHeader
+      eyebrow="Features"
+      title="Bearmin Studioの特徴"
+      description="一度の発注で終わる開発ではなく、月額制で継続的に業務を改善していくサービス設計です。"
+    />
+    <div class="mt-14 grid gap-6 md:gap-8 lg:grid-cols-3">
+      {
+        FEATURES.map((feature) => (
+          <article class="relative flex flex-col rounded-2xl bg-paper p-8 ring-1 ring-line">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs tracking-[0.18em] text-accent-deep">{feature.index}</span>
+              <CharacterMascot pose={feature.mascot} alt="" size="sm" class="-mt-4 -mr-2" />
+            </div>
+            <h3 class="mt-4 text-balance text-xl font-bold leading-snug">{feature.title}</h3>
+            <p class="mt-4 text-pretty text-sm leading-[1.9] text-ink-soft">{feature.description}</p>
+            <ul class="mt-6 space-y-2.5 border-t border-line pt-5 text-sm text-ink-soft">
+              {feature.points.map((p) => (
+                <li class="flex items-start gap-2">
+                  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mt-1 h-3.5 w-3.5 flex-none text-accent-deep">
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4l3.3 3.3 7.3-7.3a1 1 0 0 1 1.4 0Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</Section>

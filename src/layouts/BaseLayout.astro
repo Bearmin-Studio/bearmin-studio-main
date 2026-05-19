@@ -1,0 +1,170 @@
+---
+import '../styles/global.css';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { SITE, COMPANY } from '../lib/site';
+
+type Props = {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  pathname?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  articleSection?: string;
+};
+
+const {
+  title,
+  description = SITE.description,
+  keywords,
+  ogImage = SITE.ogImage,
+  ogImageAlt,
+  ogType = 'website',
+  noindex = false,
+  pathname = Astro.url.pathname,
+  publishedTime,
+  modifiedTime,
+  articleSection,
+} = Astro.props;
+
+const pageTitle = title ? `${title}｜${SITE.name}` : `${SITE.name}｜業務効率化の月額制サービス`;
+const canonical = new URL(pathname, SITE.url).toString();
+const absoluteOg = new URL(ogImage, SITE.url).toString();
+const finalOgAlt = ogImageAlt ?? `${title ?? SITE.name} のOGP画像`;
+
+const DEFAULT_KEYWORDS = [
+  '業務効率化',
+  '業務自動化',
+  'Excel自動化',
+  'スプレッドシート自動化',
+  'RPA',
+  '業務システム構築',
+  '月額制',
+  '名古屋',
+  'Bearmin Studio',
+  'ベアミンスタジオ',
+];
+const keywordsContent = (keywords ?? DEFAULT_KEYWORDS).join(', ');
+
+// Organization JSON-LD (全ページ共通)
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  alternateName: SITE.nameJa,
+  url: SITE.url,
+  logo: new URL('/icon-512.png', SITE.url).toString(),
+  description: SITE.description,
+  email: COMPANY.email,
+  founder: { '@type': 'Person', name: COMPANY.owner },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: '名古屋市千種区',
+    addressRegion: '愛知県',
+    streetAddress: '今池5-33-2',
+    addressCountry: 'JP',
+  },
+  sameAs: [COMPANY.xUrl, COMPANY.chatworkUrl],
+};
+
+// WebSite JSON-LD (トップページ向け)
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  alternateName: SITE.nameJa,
+  url: SITE.url,
+  inLanguage: 'ja',
+  publisher: { '@type': 'Organization', name: SITE.name },
+};
+---
+
+<!doctype html>
+<html lang="ja" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="color-scheme" content="light" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywordsContent} />
+    <meta name="author" content={SITE.name} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex,nofollow" />
+      ) : (
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+      )
+    }
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={absoluteOg} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={finalOgAlt} />
+
+    {ogType === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {ogType === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {ogType === 'article' && articleSection && <meta property="article:section" content={articleSection} />}
+    {ogType === 'article' && <meta property="article:publisher" content={SITE.url} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={COMPANY.xHandle} />
+    <meta name="twitter:creator" content={COMPANY.xHandle} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOg} />
+    <meta name="twitter:image:alt" content={finalOgAlt} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=DotGothic16&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    {pathname === '/' && <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />}
+
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen bg-paper text-ink font-sans antialiased selection:bg-ink selection:text-paper-soft flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-ink focus:text-paper-soft focus:px-3 focus:py-2 focus:rounded-md"
+    >
+      本文へスキップ
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

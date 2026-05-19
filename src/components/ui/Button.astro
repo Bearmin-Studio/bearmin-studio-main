@@ -1,0 +1,64 @@
+---
+type Props = {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'ghost' | 'invert';
+  size?: 'md' | 'lg';
+  fullWidth?: boolean;
+  class?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+};
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  class: className = '',
+  target,
+  rel,
+  ariaLabel,
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-soft';
+
+const variantClass: Record<NonNullable<Props['variant']>, string> = {
+  primary:
+    'bg-ink text-paper-soft hover:bg-ink-soft focus-visible:ring-ink/40',
+  ghost:
+    'border border-ink text-ink hover:bg-ink hover:text-paper-soft focus-visible:ring-ink/30',
+  invert:
+    'bg-paper-soft text-ink hover:bg-line-soft focus-visible:ring-paper-soft/60 focus-visible:ring-offset-ink',
+};
+
+const sizeClass: Record<NonNullable<Props['size']>, string> = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+
+const cls = [
+  base,
+  variantClass[variant],
+  sizeClass[size],
+  fullWidth ? 'w-full' : '',
+  className,
+];
+
+const externalRel = target === '_blank' ? rel ?? 'noopener noreferrer' : rel;
+---
+
+{
+  href ? (
+    <a href={href} class:list={cls} target={target} rel={externalRel} aria-label={ariaLabel}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class:list={cls} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

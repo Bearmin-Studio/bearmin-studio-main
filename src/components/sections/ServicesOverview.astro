@@ -1,0 +1,58 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import CharacterMascot from '../ui/CharacterMascot.astro';
+import { SERVICES } from '../../data/services';
+---
+
+<Section tone="paper" spacing="lg" id="services-overview">
+  <Container>
+    <SectionHeader
+      eyebrow="Services"
+      title="3つのサービス"
+      description="小さなExcel改善から、RPA・業務システム構築まで。毎月の制作枠の中で、優先順位の高いものから着実に進めます。"
+    />
+    <div class="mt-14 grid gap-6 md:gap-8 lg:grid-cols-3">
+      {
+        SERVICES.map((service) => (
+          <article class="group flex h-full flex-col rounded-2xl border border-line bg-paper-soft p-8 transition-all duration-200 hover:-translate-y-1 hover:border-ink/30 hover:shadow-[var(--shadow-lift)]">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-xs font-mono tracking-[0.18em] text-accent-deep">{service.index}</p>
+                <p class="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-deep">
+                  {service.category}
+                </p>
+              </div>
+              <CharacterMascot pose={service.mascot} alt="" size="sm" class="-mr-2 -mt-2" />
+            </div>
+            <h3 class="mt-6 break-keep text-xl font-bold leading-snug"><Fragment set:html={service.title} /></h3>
+            <p class="mt-3 break-keep text-pretty text-sm font-medium text-ink-soft"><Fragment set:html={service.subtitle} /></p>
+            <p class="mt-5 text-pretty text-sm leading-[1.9] text-ink-soft"><Fragment set:html={service.description} /></p>
+            <ul class="mt-6 space-y-2 text-sm text-ink-soft">
+              {service.examples.slice(0, 4).map((ex) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-2 h-1 w-1 flex-none rounded-full bg-ink" aria-hidden="true" />
+                  <span>{ex}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={service.href}
+              class="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-ink transition-colors group-hover:gap-2"
+            >
+              詳しく見る
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-4 w-4">
+                <path
+                  fill-rule="evenodd"
+                  d="M7.21 14.77a.75.75 0 0 1 0-1.06L10.94 10 7.21 6.29a.75.75 0 1 1 1.06-1.06l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</Section>

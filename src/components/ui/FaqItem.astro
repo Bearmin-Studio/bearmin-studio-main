@@ -1,0 +1,41 @@
+---
+type Props = {
+  question: string;
+  answer: string;
+  open?: boolean;
+};
+
+const { question, answer, open = false } = Astro.props;
+---
+
+<details
+  class="group rounded-xl border border-line bg-paper-soft transition-colors open:border-ink/30"
+  open={open}
+>
+  <summary class="flex cursor-pointer list-none items-start gap-4 px-5 py-5 text-left text-ink md:px-7 md:py-6">
+    <span class="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-full bg-line-soft text-xs font-bold text-ink">
+      Q
+    </span>
+    <span class="flex-1 text-base font-semibold leading-snug md:text-lg">{question}</span>
+    <span
+      class="mt-1 flex h-7 w-7 flex-none items-center justify-center rounded-full border border-line text-ink-soft transition-transform group-open:rotate-45"
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+        <path
+          fill-rule="evenodd"
+          d="M10 4a.75.75 0 0 1 .75.75v4.5h4.5a.75.75 0 0 1 0 1.5h-4.5v4.5a.75.75 0 0 1-1.5 0v-4.5h-4.5a.75.75 0 0 1 0-1.5h4.5v-4.5A.75.75 0 0 1 10 4Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </span>
+  </summary>
+  <div class="border-t border-line px-5 pb-6 pt-5 text-sm leading-[2] text-ink-soft md:px-7 md:pb-7 md:text-[15px]">
+    <div class="flex items-start gap-4">
+      <span class="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-full bg-ink text-xs font-bold text-paper-soft">
+        A
+      </span>
+      <p class="flex-1 whitespace-pre-line">{answer}</p>
+    </div>
+  </div>
+</details>

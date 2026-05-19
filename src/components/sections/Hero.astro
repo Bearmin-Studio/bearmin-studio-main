@@ -1,0 +1,313 @@
+---
+import Button from '../ui/Button.astro';
+
+const records = [
+  { orderNo: 'R-1024', customer: '株式会社A', product: '定期保守プラン', amount: '¥220,000' },
+  { orderNo: 'R-1025', customer: '株式会社B', product: '導入支援パック', amount: '¥480,000' },
+  { orderNo: 'R-1026', customer: '株式会社C', product: '追加ライセンス', amount: '¥98,000' },
+  { orderNo: 'R-1027', customer: '株式会社D', product: '月次レポート作成', amount: '¥75,000' },
+  { orderNo: 'R-1028', customer: '株式会社E', product: 'API連携プラン', amount: '¥340,000' },
+  { orderNo: 'R-1029', customer: '株式会社F', product: 'コンサルティング', amount: '¥620,000' },
+  { orderNo: 'R-1030', customer: '株式会社G', product: 'バックアップ運用', amount: '¥45,000' },
+  { orderNo: 'R-1031', customer: '株式会社H', product: 'セキュリティ監査', amount: '¥280,000' },
+  { orderNo: 'R-1032', customer: '株式会社I', product: 'ユーザートレーニング', amount: '¥120,000' },
+  { orderNo: 'R-1033', customer: '株式会社J', product: '定期保守プラン', amount: '¥220,000' },
+  { orderNo: 'R-1034', customer: '株式会社K', product: 'データ移行サービス', amount: '¥390,000' },
+  { orderNo: 'R-1035', customer: '株式会社L', product: '導入支援パック', amount: '¥480,000' },
+  { orderNo: 'R-1036', customer: '株式会社M', product: '追加ライセンス', amount: '¥165,000' },
+  { orderNo: 'R-1037', customer: '株式会社N', product: 'API連携プラン', amount: '¥340,000' },
+  { orderNo: 'R-1038', customer: '株式会社O', product: '月次レポート作成', amount: '¥75,000' },
+  { orderNo: 'R-1039', customer: '株式会社P', product: 'コンサルティング', amount: '¥860,000' },
+  { orderNo: 'R-1040', customer: '株式会社Q', product: 'バックアップ運用', amount: '¥45,000' },
+  { orderNo: 'R-1041', customer: '株式会社R', product: 'セキュリティ監査', amount: '¥280,000' },
+  { orderNo: 'R-1042', customer: '株式会社S', product: '定期保守プラン', amount: '¥220,000' },
+  { orderNo: 'R-1043', customer: '株式会社T', product: 'ユーザートレーニング', amount: '¥120,000' },
+  { orderNo: 'R-1044', customer: '株式会社U', product: '導入支援パック', amount: '¥480,000' },
+  { orderNo: 'R-1045', customer: '株式会社V', product: '追加ライセンス', amount: '¥98,000' },
+  { orderNo: 'R-1046', customer: '株式会社W', product: 'データ移行サービス', amount: '¥390,000' },
+  { orderNo: 'R-1047', customer: '株式会社X', product: 'コンサルティング', amount: '¥540,000' },
+  { orderNo: 'R-1048', customer: '株式会社Y', product: '月次レポート作成', amount: '¥75,000' },
+  { orderNo: 'R-1049', customer: '株式会社Z', product: 'API連携プラン', amount: '¥340,000' },
+];
+---
+
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-paper" aria-hidden="true"></div>
+
+  <div class="mx-auto w-full max-w-7xl px-5 py-14 md:px-8 md:py-20" data-hero-demo>
+    <!-- TOP: Title + copy + CTAs -->
+    <div class="mx-auto max-w-2xl text-center">
+      <h1 class="break-keep text-balance text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.3] tracking-tight">
+        <span class="inline-block">業務を</span><wbr /><span class="inline-block"><span class="text-accent-deep">自動化</span>しませんか？</span>
+      </h1>
+      <ul class="mt-6 flex flex-wrap items-center justify-center gap-2">
+        <li class="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-soft px-3.5 py-1.5 text-xs font-semibold text-ink-soft md:text-sm">
+          # Excel・スプレッドシート自動化
+        </li>
+        <li class="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-soft px-3.5 py-1.5 text-xs font-semibold text-ink-soft md:text-sm">
+          # RPA導入
+        </li>
+        <li class="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-soft px-3.5 py-1.5 text-xs font-semibold text-ink-soft md:text-sm">
+          # 業務システム構築
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mobile-only tabs (Before / After) -->
+    <div class="mx-auto mt-14 max-w-sm md:hidden">
+      <div class="flex rounded-full border border-line bg-paper p-1" role="tablist" data-mobile-tabs>
+        <button
+          type="button"
+          data-mobile-tab="before"
+          aria-selected="true"
+          class="flex-1 rounded-full bg-paper-soft px-4 py-2 text-sm font-semibold text-ink shadow-[var(--shadow-soft)] transition"
+        >Before</button>
+        <button
+          type="button"
+          data-mobile-tab="after"
+          aria-selected="false"
+          class="flex-1 rounded-full px-4 py-2 text-sm font-semibold text-ink-muted transition"
+        >After</button>
+      </div>
+    </div>
+
+    <!-- DEMO: Before | Start button | After -->
+    <div class="mt-4 grid gap-6 md:mt-16 md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8 lg:gap-12">
+      <!-- BEFORE: Source portal -->
+      <div class="order-1 md:order-1" data-mobile-panel="before">
+        <div class="mb-3 hidden items-center gap-2 md:flex">
+          <span class="eyebrow-sm text-ink-muted">Before</span>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-line bg-paper-soft shadow-[var(--shadow-card)]">
+          <!-- Browser chrome -->
+          <div class="flex items-center gap-1.5 border-b border-line bg-line-soft px-3 py-2">
+            <span class="h-2 w-2 rounded-full bg-ink-subtle/50"></span>
+            <span class="h-2 w-2 rounded-full bg-ink-subtle/50"></span>
+            <span class="h-2 w-2 rounded-full bg-ink-subtle/50"></span>
+            <span class="ml-2 inline-block max-w-full truncate rounded-md bg-paper-soft px-2 py-0.5 text-[10px] text-ink-muted">
+              <span data-rpa-url>supplier-portal.example.com/orders/—</span>
+            </span>
+          </div>
+          <!-- Browser body -->
+          <div class="p-4 text-xs md:text-[13px]">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-ink-muted">Supplier Portal</p>
+            <dl class="mt-3 grid grid-cols-[70px_1fr] gap-y-2 text-ink-soft">
+              <dt class="text-ink-muted">受注No</dt>
+              <dd class="font-mono font-semibold text-ink" data-rpa-order>—</dd>
+              <dt class="text-ink-muted">顧客名</dt>
+              <dd class="font-semibold text-ink" data-rpa-customer>—</dd>
+              <dt class="text-ink-muted">商品</dt>
+              <dd class="text-ink" data-rpa-product>—</dd>
+              <dt class="text-ink-muted">金額</dt>
+              <dd class="font-bold text-accent-deep" data-rpa-amount>—</dd>
+            </dl>
+            <p class="mt-3 border-t border-line pt-3 text-[10px] text-ink-muted">
+              ページ <span data-rpa-idx>0</span> / <span data-rpa-total>{records.length}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: Start button (terminal prompt style) -->
+      <div class="order-3 flex flex-col items-center gap-3 md:order-2 md:py-4">
+        <p class="text-[10px] font-mono uppercase tracking-[0.2em] text-accent-deep">
+          ▼ click to run
+        </p>
+        <button
+          type="button"
+          data-rpa-start
+          aria-label="デモを起動"
+          class="group inline-flex items-center gap-2.5 rounded-md border border-ink/30 bg-ink px-5 py-3.5 font-mono text-sm text-paper-soft shadow-[var(--shadow-card)] transition-all hover:border-accent/60 hover:bg-ink-soft hover:shadow-[var(--shadow-lift)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <span class="font-bold text-accent">$</span>
+          <span data-rpa-btn-label>run automation.sh</span>
+          <span class="inline-block h-3.5 w-1.5 animate-pulse bg-accent" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- AFTER: Spreadsheet output -->
+      <div class="order-2 hidden md:order-3 md:block" data-mobile-panel="after">
+        <div class="mb-3 hidden items-center gap-2 md:flex">
+          <span class="eyebrow-sm text-accent-deep">After</span>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-line bg-paper-soft shadow-[var(--shadow-card)]">
+          <!-- Sheet header -->
+          <div class="flex items-center justify-between border-b border-line bg-line-soft px-3 py-2">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-ink-muted">受注台帳.xlsx</span>
+            <span class="text-[10px] text-ink-muted">
+              <span data-rpa-count>0</span> 件 登録済
+            </span>
+          </div>
+          <!-- Sheet body (fixed height) -->
+          <div class="h-[200px] overflow-y-auto">
+            <table class="w-full text-[11px] md:text-xs">
+              <thead class="sticky top-0 z-10 bg-line-soft text-ink-muted">
+                <tr>
+                  <th class="px-2 py-1.5 text-left font-medium">受注No</th>
+                  <th class="px-2 py-1.5 text-left font-medium">顧客</th>
+                  <th class="px-2 py-1.5 text-right font-medium">金額</th>
+                </tr>
+              </thead>
+              <tbody data-rpa-sheet class="divide-y divide-line">
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Command line log (terminal stays dark for contrast) -->
+        <div class="mt-3 overflow-hidden rounded-md border border-ink/10 bg-ink">
+          <div class="flex items-center justify-between border-b border-paper-soft/10 px-3 py-1.5">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-paper-soft/60">実行ログ</span>
+            <span class="flex items-center gap-1 text-[10px] text-paper-soft/40">
+              <span class="h-1.5 w-1.5 rounded-full bg-accent/60"></span>
+              bearmin@bot
+            </span>
+          </div>
+          <div
+            class="h-28 overflow-y-auto px-3 py-2 font-mono text-[10px] leading-relaxed text-paper-soft/75"
+            data-rpa-log
+          >
+            <div class="text-paper-soft/50">$ awaiting command...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ records }}>
+  const root = document.querySelector('[data-hero-demo]');
+  if (root) {
+    const btn = root.querySelector('[data-rpa-start]');
+    const btnLabel = root.querySelector('[data-rpa-btn-label]');
+    const url = root.querySelector('[data-rpa-url]');
+    const order = root.querySelector('[data-rpa-order]');
+    const customer = root.querySelector('[data-rpa-customer]');
+    const product = root.querySelector('[data-rpa-product]');
+    const amount = root.querySelector('[data-rpa-amount]');
+    const idx = root.querySelector('[data-rpa-idx]');
+    const sheet = root.querySelector('[data-rpa-sheet]');
+    const count = root.querySelector('[data-rpa-count]');
+    const log = root.querySelector('[data-rpa-log]');
+
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    let running = false;
+    let total = 0;
+    let hasRun = false;
+
+    function logLine(text, kind) {
+      const ts = new Date().toLocaleTimeString('ja-JP', { hour12: false });
+      const div = document.createElement('div');
+      const color =
+        kind === 'success'
+          ? 'text-accent'
+          : kind === 'info'
+            ? 'text-paper-soft/80'
+            : 'text-paper-soft/60';
+      div.className = color;
+      div.textContent = `[${ts}] ${text}`;
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function resetPortal() {
+      url.textContent = 'supplier-portal.example.com/orders/—';
+      order.textContent = '—';
+      customer.textContent = '—';
+      product.textContent = '—';
+      amount.textContent = '—';
+      idx.textContent = '0';
+    }
+
+    async function run() {
+      if (running) return;
+      running = true;
+      btn.disabled = true;
+      btnLabel.textContent = 'executing...';
+      sheet.innerHTML = '';
+      total = 0;
+      count.textContent = '0';
+      log.innerHTML = '';
+
+      const t0 = performance.now();
+      logLine('bot started: 取引先ポータルへログイン', 'info');
+      await sleep(220);
+      logLine(`受注一覧を取得 ... ${records.length}件のページを順次クロール`, 'info');
+      await sleep(260);
+
+      for (let i = 0; i < records.length; i++) {
+        const rec = records[i];
+        idx.textContent = i + 1;
+        url.textContent = `supplier-portal.example.com/orders/${rec.orderNo}`;
+        order.textContent = '...';
+        customer.textContent = '...';
+        product.textContent = '...';
+        amount.textContent = '...';
+        logLine(`→ GET /orders/${rec.orderNo}`, 'info');
+        await sleep(220);
+        order.textContent = rec.orderNo;
+        await sleep(100);
+        customer.textContent = rec.customer;
+        await sleep(100);
+        product.textContent = rec.product;
+        await sleep(100);
+        amount.textContent = rec.amount;
+        logLine(`  scraped: ${rec.customer} / ${rec.product} / ${rec.amount}`);
+        await sleep(220);
+
+        await sleep(240);
+
+        const row = document.createElement('tr');
+        row.className = 'opacity-0 transition-all duration-500';
+        row.style.backgroundColor = 'rgba(212,165,116,0.22)';
+        row.innerHTML = `
+          <td class="px-2 py-1.5 font-mono text-ink">${rec.orderNo}</td>
+          <td class="px-2 py-1.5 text-ink">${rec.customer}</td>
+          <td class="px-2 py-1.5 text-right font-semibold text-accent-deep">${rec.amount}</td>
+        `;
+        sheet.prepend(row);
+        requestAnimationFrame(() => row.classList.remove('opacity-0'));
+        setTimeout(() => (row.style.backgroundColor = ''), 1000);
+
+        total++;
+        count.textContent = total;
+        logLine(`✓ ${rec.orderNo} 登録完了 (${total}/${records.length})`, 'success');
+        await sleep(380);
+      }
+
+      const sec = ((performance.now() - t0) / 1000).toFixed(1);
+      logLine(`=== ALL DONE: ${records.length} records, 0 errors, ${sec}s ===`, 'success');
+      btnLabel.textContent = 'run again';
+      btn.disabled = false;
+      running = false;
+      hasRun = true;
+    }
+
+    btn.addEventListener('click', () => {
+      if (hasRun) resetPortal();
+      run();
+    });
+
+    // Mobile tab switching
+    const tabs = root.querySelectorAll('[data-mobile-tab]');
+    const beforePanel = root.querySelector('[data-mobile-panel="before"]');
+    const afterPanel = root.querySelector('[data-mobile-panel="after"]');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.mobileTab;
+        tabs.forEach((t) => {
+          const isActive = t.dataset.mobileTab === target;
+          t.setAttribute('aria-selected', String(isActive));
+          t.classList.toggle('bg-paper-soft', isActive);
+          t.classList.toggle('text-ink', isActive);
+          t.classList.toggle('shadow-[var(--shadow-soft)]', isActive);
+          t.classList.toggle('text-ink-muted', !isActive);
+        });
+        beforePanel.classList.toggle('hidden', target !== 'before');
+        afterPanel.classList.toggle('hidden', target !== 'after');
+      });
+    });
+  }
+</script>

@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import bow from '../../assets/character/bearmin-bow.png';
+import cheer from '../../assets/character/bearmin-cheer.png';
+import laptop from '../../assets/character/bearmin-laptop.png';
+import peek from '../../assets/character/bearmin-peek.png';
+import sleep from '../../assets/character/bearmin-sleep.png';
+import stand from '../../assets/character/bearmin-stand.png';
+import think from '../../assets/character/bearmin-think.png';
+import thumbsup from '../../assets/character/bearmin-thumbsup.png';
+import wave from '../../assets/character/bearmin-wave.png';
+import type { MascotPose, MascotSize } from '../../types/mascot';
+
+type Props = {
+  pose: MascotPose;
+  alt?: string;
+  size?: MascotSize;
+  loading?: 'eager' | 'lazy';
+  class?: string;
+};
+
+const sources: Record<MascotPose, ImageMetadata> = {
+  bow,
+  cheer,
+  laptop,
+  peek,
+  sleep,
+  stand,
+  think,
+  thumbsup,
+  wave,
+};
+
+const sizeClass: Record<MascotSize, string> = {
+  xs: 'h-12 w-auto',
+  sm: 'h-20 w-auto',
+  md: 'h-32 w-auto',
+  lg: 'h-48 w-auto',
+  xl: 'h-64 w-auto md:h-72',
+};
+
+const widths: Record<MascotSize, number[]> = {
+  xs: [64, 96],
+  sm: [96, 144],
+  md: [144, 192, 256],
+  lg: [192, 256, 384],
+  xl: [256, 384, 512],
+};
+
+const { pose, alt = '', size = 'md', loading = 'lazy', class: className = '' } = Astro.props;
+---
+
+<Image
+  src={sources[pose]}
+  alt={alt}
+  widths={widths[size]}
+  sizes="(max-width: 768px) 60vw, 30vw"
+  loading={loading}
+  class:list={[sizeClass[size], '[image-rendering:pixelated]', className]}
+  aria-hidden={alt === '' ? 'true' : undefined}
+/>
