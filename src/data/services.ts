@@ -44,33 +44,8 @@ export const SERVICES: Service[] = [
     href: '/services#excel',
   },
   {
-    id: 'rpa',
-    index: '02',
-    category: 'RPA',
-    title: 'RPA導入・<wbr />PC作業の自動化',
-    description:
-      '人がパソコン上で行う作業を、自動で実行できる仕組みにします。<br />毎朝・毎月の決まった作業に時間を取られている方におすすめです。',
-    examples: [
-      'Webサイトからの情報取得',
-      '管理画面への入力作業',
-      'Excelからシステムへの転記',
-      'ファイルのダウンロード・整理',
-      '定型メール送信',
-      '請求書・帳票作成の補助',
-      '毎日・毎月の定型作業の自動化',
-    ],
-    concerns: [
-      '同じ画面操作を何度もしている',
-      '毎朝・毎月の決まった作業に時間がかかる',
-      '人がやらなくてもよさそうな作業が残っている',
-      '人を増やす前に、自動化できる作業を見直したい',
-    ],
-    mascot: 'thumbsup',
-    href: '/services#rpa',
-  },
-  {
     id: 'system',
-    index: '03',
+    index: '02',
     category: '業務システム構築',
     title: '業務システム構築',
     description:
@@ -93,5 +68,30 @@ export const SERVICES: Service[] = [
     ],
     mascot: 'stand',
     href: '/services#system',
+  },
+  {
+    id: 'rpa',
+    index: '03',
+    category: 'RPA',
+    title: 'RPA導入・<wbr />PC作業の自動化',
+    description:
+      '人がパソコン上で行う作業を、自動で実行できる仕組みにします。<br />毎朝・毎月の決まった作業に時間を取られている方におすすめです。',
+    examples: [
+      'Webサイトからの情報取得',
+      '管理画面への入力作業',
+      'Excelからシステムへの転記',
+      'ファイルのダウンロード・整理',
+      '定型メール送信',
+      '請求書・帳票作成の補助',
+      '毎日・毎月の定型作業の自動化',
+    ],
+    concerns: [
+      '同じ画面操作を何度もしている',
+      '毎朝・毎月の決まった作業に時間がかかる',
+      '人がやらなくてもよさそうな作業が残っている',
+      '人を増やす前に、自動化できる作業を見直したい',
+    ],
+    mascot: 'thumbsup',
+    href: '/services#rpa',
   },
 ];
