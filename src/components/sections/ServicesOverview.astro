@@ -27,7 +27,7 @@ import { SERVICES } from '../../data/services';
               <CharacterMascot pose={service.mascot} alt="" size="sm" class="-mr-2 -mt-2" />
             </div>
             <h3 class="mt-6 break-keep text-xl font-bold leading-snug"><Fragment set:html={service.title} /></h3>
-            <p class="mt-3 break-keep text-pretty text-sm font-medium text-ink-soft"><Fragment set:html={service.subtitle} /></p>
+            <p class="mt-3 break-keep text-pretty text-sm font-medium text-ink-soft"></p>
             <p class="mt-5 text-pretty text-sm leading-[1.9] text-ink-soft"><Fragment set:html={service.description} /></p>
             <ul class="mt-6 space-y-2 text-sm text-ink-soft">
               {service.examples.slice(0, 4).map((ex) => (
