@@ -72,7 +72,7 @@ export const SERVICES: Service[] = [
   {
     id: 'rpa',
     index: '03',
-    category: 'RPA',
+    category: 'RPA導入',
     title: 'RPA導入・<wbr />PC作業の自動化',
     description:
       '人がパソコン上で行う作業を、自動で実行できる仕組みにします。<br />毎朝・毎月の決まった作業に時間を取られている方におすすめです。',

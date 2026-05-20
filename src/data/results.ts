@@ -25,14 +25,14 @@ export const RESULTS: ResultRow[] = [
   },
   {
     category: 'rpa',
-    categoryLabel: 'RPA',
+    categoryLabel: 'RPA導入',
     title: '毎朝のデータ収集',
     effect: '月 20時間削減',
     effectDetail: '出社前に必要なデータが揃っている状態に',
   },
   {
     category: 'rpa',
-    categoryLabel: 'RPA',
+    categoryLabel: 'RPA導入',
     title: '請求書・帳票作成の補助',
     effect: '月 10時間削減',
     effectDetail: '手作業のミスもほぼゼロに',
