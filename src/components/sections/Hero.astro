@@ -110,19 +110,51 @@ const records = [
 
       <!-- CENTER: Start button (terminal prompt style) -->
       <div class="order-3 flex flex-col items-center gap-3 md:order-2 md:py-4">
-        <p class="text-[10px] font-mono uppercase tracking-[0.2em] text-accent-deep">
-          ▼ click to run
-        </p>
-        <button
-          type="button"
-          data-rpa-start
-          aria-label="デモを起動"
-          class="group inline-flex w-[15rem] items-center justify-center gap-2.5 rounded-md border border-ink/30 bg-ink px-5 py-3.5 font-mono text-sm text-paper-soft shadow-[var(--shadow-card)] transition-all hover:border-accent/60 hover:bg-ink-soft hover:shadow-[var(--shadow-lift)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:cursor-not-allowed disabled:opacity-60"
+        <div
+          class="flex flex-col items-center gap-1.5 transition-opacity duration-500"
+          data-rpa-cta-hint
         >
-          <span class="font-bold text-accent">$</span>
-          <span data-rpa-btn-label>run automation.sh</span>
-          <span class="inline-block h-3.5 w-1.5 animate-pulse bg-accent" aria-hidden="true"></span>
-        </button>
+          <span class="inline-flex items-center gap-1 rounded-full bg-accent/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-accent-deep">
+            ▶ クリックで実行
+          </span>
+          <svg
+            class="h-5 w-5 text-accent-deep motion-safe:animate-bounce"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
+          </svg>
+        </div>
+        <div class="relative">
+          <span
+            class="pointer-events-none absolute -inset-1.5 -z-10 rounded-xl bg-accent/40 blur-lg motion-safe:animate-pulse transition-opacity duration-500"
+            aria-hidden="true"
+            data-rpa-glow
+          ></span>
+          <button
+            type="button"
+            data-rpa-start
+            aria-label="デモを起動"
+            class="group inline-flex w-[16rem] cursor-pointer items-center justify-center gap-2.5 rounded-md border-2 border-accent/70 bg-ink px-5 py-4 font-mono text-sm text-paper-soft shadow-[var(--shadow-lift)] transition-all hover:scale-[1.03] hover:border-accent hover:bg-ink-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <svg
+              class="h-3.5 w-3.5 text-accent transition-transform group-hover:translate-x-0.5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M6 4l10 6-10 6z" />
+            </svg>
+            <span class="font-bold text-accent">$</span>
+            <span data-rpa-btn-label>run automation.sh</span>
+            <span class="inline-block h-3.5 w-1.5 animate-pulse bg-accent" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
 
       <!-- AFTER: Spreadsheet output -->
@@ -182,6 +214,8 @@ const records = [
   if (root) {
     const btn = root.querySelector('[data-rpa-start]');
     const btnLabel = root.querySelector('[data-rpa-btn-label]');
+    const ctaHint = root.querySelector('[data-rpa-cta-hint]');
+    const ctaGlow = root.querySelector('[data-rpa-glow]');
     const url = root.querySelector('[data-rpa-url]');
     const order = root.querySelector('[data-rpa-order]');
     const customer = root.querySelector('[data-rpa-customer]');
@@ -286,6 +320,8 @@ const records = [
     }
 
     btn.addEventListener('click', () => {
+      if (ctaHint) ctaHint.classList.add('opacity-0', 'pointer-events-none');
+      if (ctaGlow) ctaGlow.classList.add('opacity-0');
       if (hasRun) resetPortal();
       run();
     });
