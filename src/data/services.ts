@@ -66,7 +66,7 @@ export const SERVICES: Service[] = [
       'Excel/スプレッドシートの機能に限界を感じている',
       '外部の月額サービスにお金をかけている',
     ],
-    mascot: 'stand',
+    mascot: 'wave',
     href: '/services#system',
   },
   {

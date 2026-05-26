@@ -26,7 +26,7 @@ export const FEATURES: Feature[] = [
     title: '制作後の保守もセット',
     description:
       '作って終わりではなく、制作したツールや仕組みの保守も月額内に含まれます。運用しながら出てくる改善相談にも対応します。',
-    mascot: 'think',
+    mascot: 'bow',
     points: [
       '軽微な修正・調整',
       '操作方法のサポート',

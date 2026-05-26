@@ -12,9 +12,13 @@ import { PLAN_FEATURES, PLANS } from '../../data/plans';
         {
           PLANS.map((plan) => (
             <th scope="col" class="px-5 py-5">
-              <div class="flex flex-col items-center gap-1">
-                <span class:list={['text-xs font-semibold uppercase tracking-[0.16em]', plan.recommended ? 'text-ink' : 'text-ink-muted']}>
-                  {plan.recommended ? 'おすすめ' : ' '}
+              <div class="flex flex-col items-center gap-2">
+                <span class="flex h-6 items-center">
+                  {plan.recommended && (
+                    <span class="rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-ink">
+                      おすすめ
+                    </span>
+                  )}
                 </span>
                 <span class="text-base font-bold text-ink">{plan.name}</span>
                 <span class="text-sm font-semibold text-ink-soft">{plan.feeLabel} / 月</span>

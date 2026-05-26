@@ -30,7 +30,6 @@ export type NavLink = { label: string; href: string };
 
 export const NAV_LINKS: readonly NavLink[] = [
   { label: 'サービス詳細', href: '/services' },
-  { label: '事例紹介', href: '/cases' },
   { label: 'よくあるご質問', href: '/faq' },
   { label: '事業概要', href: '/about' },
   { label: 'お知らせ', href: '/news' },
