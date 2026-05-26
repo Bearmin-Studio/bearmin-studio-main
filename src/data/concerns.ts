@@ -6,10 +6,10 @@ export type Concern = {
 };
 
 export const CONCERNS: Concern[] = [
-  { text: '毎月の集計・レポート作成に、毎回半日〜1日かかっている', service: 'excel' },
-  { text: '業務の負担を減らしたい', service: 'excel' },
-  { text: 'データがExcelやSaaSに散らばり、必要な情報を探すのに時間がかかる', service: 'system' },
-  { text: 'SaaSに、毎月の費用が積み上がっている', service: 'system' },
-  { text: '毎日・毎月、同じPC操作をくり返す業務がある', service: 'rpa' },
-  { text: '人を増やす余裕はないが、業務量は増え続けている', service: 'rpa' },
+  { text: '毎月、同じ集計作業を繰り返している', service: 'excel' },
+  { text: 'コピペ・転記作業が多すぎる', service: 'excel' },
+  { text: '“特定の人にしかわからないExcel”になっている', service: 'excel' },
+  { text: '人を増やす前に、業務を効率化したい', service: 'rpa' },
+  { text: '複数のExcelやSaaSに情報が散らばっている', service: 'system' },
+  { text: 'IT担当がいなくて、改善が進まない', service: 'system' },
 ];
