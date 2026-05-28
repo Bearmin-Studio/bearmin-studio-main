@@ -27,7 +27,7 @@ export const PLANS: Plan[] = [
     feeLabel: '29,800円',
     tagline: '小さく始めたい方へ',
     description:
-      '毎月1件まで、Excel・スプレッドシート作業の改善や小さな業務システムを制作します。まずは身近な手作業をひとつ減らしたい方におすすめです。',
+      '毎月2件まで、Excel・スプレッドシート作業の改善や小さな業務システムを制作します。まずは身近な手作業をひとつ減らしたい方におすすめです。',
     audience: '個人事業主・小さく始めたい方',
     audienceDetail: [
       'まずは試してみたい',
@@ -45,7 +45,7 @@ export const PLANS: Plan[] = [
     feeLabel: '59,800円',
     tagline: '継続的に業務改善を進めたい方へ',
     description:
-      '毎月3件まで制作でき、月1回の改善相談も含まれます。Excel自動化に加え、RPA導入や小さな業務システム構築も相談しながら進められます。',
+      '毎月4件まで制作でき、月1回の改善相談も含まれます。Excel自動化に加え、RPA導入や小さな業務システム構築も相談しながら進められます。',
     audience: '小規模事業者・少人数チーム',
     audienceDetail: [
       '毎月の定型作業が多い',
@@ -63,7 +63,7 @@ export const PLANS: Plan[] = [
     feeLabel: '88,000円',
     tagline: '複数業務をまとめて改善したい方へ',
     description:
-      '毎月5件まで制作でき、月2回の改善相談も含まれます。複数のExcel改善、RPA導入、業務システム構築を組み合わせて、本格的に業務自動化を進めたい方向け。',
+      '毎月6件まで制作でき、月2回の改善相談も含まれます。複数のExcel改善、RPA導入、業務システム構築を組み合わせて、本格的に業務自動化を進めたい方向け。',
     audience: '複数人で業務を回す事業者',
     audienceDetail: [
       '複数の手作業をまとめて減らしたい',
@@ -92,7 +92,7 @@ export const PLAN_FEATURES: PlanFeature[] = [
   },
   {
     label: '制作件数（月）',
-    values: { light: '1件まで', standard: '3件まで', premium: '5件まで' },
+    values: { light: '2件まで', standard: '4件まで', premium: '6件まで' },
   },
   {
     label: '制作物の保守',
