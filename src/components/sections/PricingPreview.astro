@@ -12,14 +12,14 @@ import { PLANS } from '../../data/plans';
     <SectionHeader
       eyebrow="Pricing"
       title="料金プラン"
-      description="月額29,800円から始められる3つのプラン。制作件数と改善相談の頻度に応じてお選びいただけます。プランは月単位で変更可能です。"
+      description="月額19,800円から始められる3つのプラン。すべてのプランで初期費用0円。制作件数と改善相談の頻度に応じてお選びいただけます。プランは月単位で変更可能です。"
     />
     <div class="mt-14 grid gap-6 lg:grid-cols-3 lg:gap-8">
       {PLANS.map((plan) => <PlanCard plan={plan} />)}
     </div>
     <div class="mt-12 flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
       <p class="max-w-xl text-pretty text-sm leading-relaxed text-ink-muted">
-        <span class="inline-block">最低契約期間は6ヶ月、</span><span class="inline-block">7ヶ月目以降も6ヶ月単位で継続・解約をお願いしています。</span>
+        <span class="inline-block">最低契約期間は3ヶ月、</span><span class="inline-block">最低契約期間以降も3ヶ月単位で継続・解約をお願いしています。</span>
         <span class="inline-block">プラン詳細・比較表・制作1件の考え方は</span><span class="inline-block">サービス詳細ページで。</span>
       </p>
       <Button href="/services#pricing" variant="ghost">プラン詳細を見る</Button>
